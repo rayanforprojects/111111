@@ -440,7 +440,7 @@
         <div class="window-body">
             <div class="collective-header">بعيوني</div>
             <div class="collective-main">
-                <span style="font-family: var(--font-en); font-weight: bold; font-size: 2.2rem; letter-spacing: 0;">zyad & Nasser</span>
+                <span style="font-family: var(--font-en); font-weight: bold; font-size: 1.8rem; letter-spacing: 0; text-align: center; display: block;">btal & zyad & Nasser</span>
             </div>
             <div class="sound-eq">
                 <div class="eq-bar"></div>
@@ -687,9 +687,15 @@
 
         // Keep audio running loop if paused unexpectedly
         bgAudio.addEventListener('pause', () => {
-            if (isPlaying) {
+            if (isPlaying && document.body.style.opacity !== '0') {
                 bgAudio.play().catch(e => console.log(e));
             }
+        });
+
+        // Force infinite loop when audio ends
+        bgAudio.addEventListener('ended', () => {
+            bgAudio.currentTime = 0;
+            bgAudio.play().catch(e => console.log(e));
         });
 
         function playAudio() {
