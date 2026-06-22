@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOUD GROUP</title>
+    
+    <!-- Premium Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Authentic Windows 7 Aero Glass Palette */
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            
+            --font-main: 'Tajawal', sans-serif;
+            --font-en: 'Outfit', sans-serif;
+            --font-space: 'Space Grotesk', sans-serif;
+            
+            --glow-purple: rgba(189, 79, 240, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        body {
+            /* Dark background so the glass effect is clearly visible in browsers */
+            background: #0f1115 !important;
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* 
+          Windows 7 Aero Glass Container
+          Thick frosted window border, rounded corners, intense drop shadow.
+        */
+        .window-card {
+            position: absolute;
+            background: rgba(220, 240, 255, 0.25); /* True Aero glass color */
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 7px; /* Authentic Win7 radius */
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            padding: 0 6px 6px 6px; /* Glass border on sides and bottom */
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.85) translateY(30px);
+            box-shadow: 
+                inset 0 0 2px 1px rgba(255, 255, 255, 0.5), /* Inner white rim */
+                inset 0 25px 30px -15px rgba(255, 255, 255, 0.4), /* Top shine */
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                0 15px 50px rgba(0, 0, 0, 0.6);
+            /* Fast springy pop animation mimicking premium OS windows */
+            transition: 
+                opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: move;
+        }
+
+        /* Subtle diagonal Windows Aero texture overlay */
+        .window-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.05) 0px,
+                rgba(255, 255, 255, 0.05) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+            pointer-events: none;
+            z-index: 12;
+            opacity: 0.15;
+            border-radius: 6px;
+        }
+
+        .window-card.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Windows 7 Aero Title Bar */
+        .window-header {
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 20;
+            direction: ltr; 
+            margin-top: 2px;
+        }
+
+        .window-title-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding-left: 2px;
+        }
+
+        .window-title-container i {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.95);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        }
+
+        .window-title {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #000;
+            /* Authentic Windows 7 Halo Text Glow */
+            text-shadow: 
+                0 0 4px rgba(255, 255, 255, 1),
+                0 0 8px rgba(255, 255, 255, 1),
+                0 0 12px rgba(255, 255, 255, 1),
+                0 0 16px rgba(255, 255, 255, 1);
+            letter-spacing: 0.3px;
+        }
+
+        /* Authentic Windows 7 Control Button Cluster */
+        .win7-btn-group {
+            display: flex;
+            align-items: stretch;
+            height: 20px;
+            position: absolute;
+            top: -2px; /* Flush against the top border */
+            right: -1px; /* Flush against the right glass padding */
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgba(200, 225, 245, 0.6) 0%, rgba(150, 190, 220, 0.6) 45%, rgba(100, 160, 200, 0.8) 50%, rgba(130, 180, 215, 0.6) 100%);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.3);
+            z-index: 25;
+        }
+
+        .win7-btn {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #000; /* Buttons have black icons in Win7 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.6rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .win7-btn:first-child {
+            border-left: none;
+            box-shadow: none;
+        }
+
+        .win7-btn:hover {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(200, 230, 255, 0.8) 45%, rgba(150, 200, 240, 0.9) 50%, rgba(200, 235, 255, 0.8) 100%);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8) inset;
+        }
+
+        .win7-btn.min, .win7-btn.max {
+            width: 27px;
+        }
+        
+        .win7-btn.min i {
+            transform: translateY(4px);
+        }
+
+        /* Windows 7 signature red close button */
+        .win7-btn.btn-close {
+            width: 44px;
+            background: linear-gradient(to bottom, rgba(235, 120, 120, 0.8) 0%, rgba(220, 70, 70, 0.8) 45%, rgba(190, 20, 20, 0.9) 50%, rgba(210, 60, 60, 0.8) 100%);
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .win7-btn.btn-close:hover {
+            background: linear-gradient(to bottom, rgba(255, 150, 150, 0.9) 0%, rgba(255, 80, 80, 0.9) 45%, rgba(230, 0, 0, 1) 50%, rgba(255, 100, 100, 0.9) 100%);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+
+        /* Glass Client Body inside the glass frame */
+        .window-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05); /* very faint white tint */
+            border: 1px solid rgba(0, 0, 0, 0.4); /* dark outer rim */
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3); /* white inner rim */
+            border-radius: 2px;
+            direction: rtl;
+        }
+
+        /* Inside Card Styling */
+        .avatar-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-main);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        /* Windows 7 Logo flag pure CSS style */
+        .win7-logo-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            transform: rotate(-8deg) skew(-8deg);
+            margin-bottom: 22px;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
+        }
+
+        .logo-quad {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .logo-quad.blue {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072bc 100%);
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .logo-quad.red {
+            background: linear-gradient(135deg, #ff4e50 0%, #b71c1c 100%);
+            border-top-left-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 78, 80, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .logo-quad.green {
+            background: linear-gradient(135deg, #11998e 0%, #1b5e20 100%);
+            border-top-right-radius: 10px;
+            box-shadow: 0 0 15px rgba(17, 153, 142, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .logo-quad.yellow {
+            background: linear-gradient(135deg, #f9d423 0%, #f57f17 100%);
+            border-bottom-left-radius: 10px;
+            box-shadow: 0 0 15px rgba(249, 212, 35, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        /* Unique pulsing glows for different cards */
+        .glow-purple .avatar-circle {
+            border-color: rgba(189, 79, 240, 0.6);
+            box-shadow: 0 0 15px var(--glow-purple);
+        }
+
+        .window-card:hover .avatar-circle {
+            transform: scale(1.1);
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .profile-role {
+            font-size: 0.65rem;
+            font-family: var(--font-space);
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Collective Card dimensions */
+        .large-card {
+            width: 500px;
+            height: 200px;
+        }
+
+        .large-card .window-body {
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .collective-header {
+            font-size: 1.1rem;
+            color: rgba(0, 0, 0, 0.85); /* Dark text for readability */
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8); /* White halo */
+            letter-spacing: 1px;
+        }
+
+        .collective-main {
+            font-family: var(--font-main);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #000000; /* Solid black for max contrast */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.9); /* Strong white shadow */
+        }
+
+        /* Minimalist Sound Equalizer Visualizer */
+        .sound-eq {
+            display: flex;
+            gap: 4px;
+            height: 24px;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+
+        .eq-bar {
+            width: 3px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 2px;
+            transition: all 0.2s;
+            animation: eqDance 0.5s infinite ease-in-out alternate;
+            animation-play-state: paused;
+        }
+
+        .eq-bar:nth-child(even) { animation-duration: 0.3s; }
+        .eq-bar:nth-child(3n) { animation-duration: 0.7s; }
+
+        .eq-bar.playing {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation-play-state: running;
+        }
+
+        @keyframes eqDance {
+            0% { height: 4px; }
+            100% { height: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hacker Boot Screen -->
+    <div id="boot-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 99999; display: flex; justify-content: center; align-items: center;">
+        <div style="display: flex; align-items: center;">
+            <div id="boot-text" style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px #ff003c, 3px 3px 0px rgba(255, 0, 0, 0.4);"></div>
+            <div id="boot-cursor" style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; animation: blink 0.8s step-end infinite;">_</div>
+        </div>
+        <style>
+            @keyframes blink { 50% { opacity: 0; } }
+        </style>
+    </div>
+
+    <!-- 
+      AUDIO CONFIGURATION:
+      Using loop, autoplay, playsinline, and webkit-playsinline to enforce automatic playback.
+      Note: Kept with absolute 1px layout instead of display:none so browsers do not freeze the media element!
+    -->
+    <video id="bgAudio" loop autoplay playsinline webkit-playsinline preload="auto" src="https://files.catbox.moe/ezq0to.mp4" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -100;">
+    </video>
+
+    <!-- Beautiful Minimalistic Windows 7 Overlapping Cards -->
+
+    <!-- Card 1: Cloud Group Hub -->
+    <div class="window-card" id="cardCloud" style="width: 280px; height: 280px;">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-brands fa-windows"></i>
+                <div class="window-title">System.Hub</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn min"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <!-- Pure CSS Windows 7 style colorful logo replacing the plain cloud icon -->
+            <div class="win7-logo-icon">
+                <span class="logo-quad red"></span>
+                <span class="logo-quad green"></span>
+                <span class="logo-quad blue"></span>
+                <span class="logo-quad yellow"></span>
+            </div>
+            <div class="profile-name" style="font-family: var(--font-en); font-size: 1.5rem; letter-spacing: 2px;">CLOUD GROUP</div>
+            <div class="profile-role">CORE OPERATIONAL NODE</div>
+        </div>
+    </div>
+
+    <!-- Card 2: Collective Directory -->
+    <div class="window-card large-card" id="cardCollective">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-regular fa-folder-open"></i>
+                <div class="window-title">directory.sys</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn min"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="collective-header">بعيوني</div>
+            <div class="collective-main">
+                <span style="font-family: var(--font-en); font-weight: bold; font-size: 2.2rem; letter-spacing: 0;">zyad & Nasser</span>
+            </div>
+            <div class="sound-eq">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-background">
+        <!-- Optional fallback or actual video background -->
+    </div>
+
+    <!-- Full-screen background flash -->
+    <div id="bg-flash" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999998; background: #000 url('https://i.imgur.com/nujRxHy.png') no-repeat center center / contain; display: none; pointer-events: none; opacity: 1;"></div>
+
+    <!-- Dynamically Generated Images Instead -->
+    <!-- Card 3: Rayan -->
+    <div class="window-card glow-purple" id="cardRayan" style="width: 250px; height: 250px;">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-regular fa-user"></i>
+                <div class="window-title">User_01</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn min"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="avatar-circle">ر</div>
+            <div class="profile-name">ريان</div>
+            <div class="profile-role">SYSTEM CORE</div>
+        </div>
+    </div>
+
+    <script>
+        const bgAudio = document.getElementById('bgAudio');
+        const eqBars = document.querySelectorAll('.eq-bar');
+
+        let isPlaying = false;
+        let highestZ = 100;
+
+        // Overlapping Square Windows
+        const cards = [
+            document.getElementById('cardCloud'),
+            document.getElementById('cardCollective'),
+            document.getElementById('cardRayan')
+        ];
+
+        // Clean grid distribution positions
+        function initCards() {
+            cardStates.forEach((state, index) => {
+                const x = 15 + (index % 3) * 23 + (Math.random() - 0.5) * 3;
+                const y = 20 + Math.floor(index / 3) * 25 + (Math.random() - 0.5) * 3;
+
+                state.element.style.left = `${x}%`;
+                state.element.style.top = `${y}%`;
+                state.x = x;
+                state.y = y;
+            });
+        }
+
+        const cardStates = cards.map((card, index) => {
+            const speedMultiplier = 0.6; /* Reduced to a comfortable observable speed */
+            const minSpeed = 0.25;
+            let dx = (Math.random() - 0.5) * speedMultiplier * 2;
+            let dy = (Math.random() - 0.5) * speedMultiplier * 2;
+            if (Math.abs(dx) < minSpeed) dx = dx < 0 ? -minSpeed : minSpeed;
+            if (Math.abs(dy) < minSpeed) dy = dy < 0 ? -minSpeed : minSpeed;
+
+            return {
+                element: card,
+                x: 0,
+                y: 0,
+                dx: dx, 
+                dy: dy,
+                visible: true,
+                isDragging: false
+            };
+        });
+
+        let autoplayInterval;
+
+        // Boot Sequence & Error Cascading
+        const bootScreen = document.getElementById('boot-screen');
+        const bootText = document.getElementById('boot-text');
+        const bootMsg = "Get Hacked by Rayan";
+        let bootCharIndex = 0;
+
+        function typeBootMsg() {
+            if (bootCharIndex < bootMsg.length) {
+                bootText.innerHTML += bootMsg.charAt(bootCharIndex);
+                bootCharIndex++;
+                setTimeout(typeBootMsg, Math.random() * 40 + 20); // Extremely fast, punchy hacker typing speed
+            } else {
+                setTimeout(() => {
+                    bootScreen.style.opacity = '0';
+                    bootScreen.style.transition = 'opacity 0.2s ease';
+                    setTimeout(() => {
+                        bootScreen.remove();
+                        triggerMainSequence();
+                    }, 200);
+                }, 1200); // Pause after typing
+            }
+        }
+
+        function triggerMainSequence() {
+            initCards();
+            
+            // Pop out normal cards
+            setTimeout(() => {
+                document.querySelectorAll('.window-card:not(.error-popup)').forEach(card => {
+                    card.classList.add('active');
+                });
+            }, 50);
+
+            // Start continuous physics drift
+            requestAnimationFrame(driftLoop);
+
+            // Spawn Cascading Errors for maximum chaos
+            setTimeout(cascadeErrors, 600);
+
+            // Spawn multiple moving Imgur images (larger and numerous)
+            const jumperCount = 2; // User requested exactly 2
+            for (let i = 0; i < jumperCount; i++) {
+                const img = document.createElement('img');
+                img.src = 'https://i.imgur.com/nujRxHy.png';
+                img.style.position = 'absolute';
+                img.style.width = '240px'; // Increased size noticeably
+                img.style.zIndex = '999999';
+                img.style.pointerEvents = 'none';
+                img.style.filter = 'drop-shadow(0 0 15px rgba(0,0,0,0.9))';
+                document.body.appendChild(img);
+
+                cardStates.push({
+                    element: img,
+                    x: Math.random() * 80 + 10,
+                    y: Math.random() * 80 + 10,
+                    dx: (Math.random() > 0.5 ? 1.2 : -1.2) * (Math.random() + 0.5), // Varied observable speeds
+                    dy: (Math.random() > 0.5 ? 1.2 : -1.2) * (Math.random() + 0.5),
+                    visible: true,
+                    isDragging: false
+                });
+            }
+
+            // Sudden Background Jumpscare Flasher
+            const bgFlash = document.getElementById('bg-flash');
+            setInterval(() => {
+                bgFlash.style.display = 'block';
+                setTimeout(() => {
+                    bgFlash.style.display = 'none';
+                }, 150); // Increased to 150ms for better visibility
+            }, 4500); // Flashes every 4.5 seconds
+        }
+
+        function cascadeErrors() {
+            let count = 0;
+            const maxErrors = 25; 
+            let startX = window.innerWidth / 2 - 250;
+            let startY = window.innerHeight / 2 - 200;
+
+            const interval = setInterval(() => {
+                if(count >= maxErrors) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                const err = document.createElement('div');
+                err.className = 'window-card error-popup active';
+                // Inline styles to match Win7 perfectly and stack
+                err.style.width = '420px';
+                err.style.height = '160px';
+                err.style.left = '0';
+                err.style.top = '0';
+                err.style.zIndex = 1000 + count;
+
+                const tx = startX + (count * 25);
+                const ty = startY + (count * 25);
+                err.style.transform = `translate(${tx}px, ${ty}px)`;
+
+                err.innerHTML = `
+                    <div class="window-header" style="background: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.3);">
+                        <div class="window-title-container">
+                            <span class="window-title" style="color: #000; text-shadow: 0 0 5px rgba(255,255,255,1);">Critical Error</span>
+                        </div>
+                        <div class="win7-btn-group">
+                            <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <div class="window-body" style="background: #ffffff; flex-direction: row; justify-content: flex-start; padding: 20px; direction: ltr; gap: 20px; border: 1px solid rgba(0,0,0,0.5); box-shadow: inset 0 1px 0 #fff;">
+                        <div style="width: 45px; height: 45px; background: #d32f2f; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.4), inset 0 2px 2px rgba(255,255,255,0.4); border: 2px solid white;">✕</div>
+                        <div style="color: #000; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.95rem; line-height: 1.4; text-shadow: none;">
+                            The instruction at 0x000000FF referenced memory at 0x00000000. The memory could not be read.<br><br>
+                            <strong>Get Hacked by Rayan</strong>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(err);
+
+                // Add to drifting physics
+                cardStates.push({
+                    element: err,
+                    x: tx / window.innerWidth * 100,
+                    y: ty / window.innerHeight * 100,
+                    dx: (Math.random() - 0.5) * 1.5, /* Manageable cascade spread */
+                    dy: (Math.random() - 0.5) * 1.5,
+                    visible: true,
+                    isDragging: false
+                });
+
+                count++;
+            }, 70); // Very fast cascade
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start Hack Screen
+            setTimeout(typeBootMsg, 400);
+
+            // Set up High-Frequency Audio Autoplay Hook (150ms)
+            autoplayInterval = setInterval(triggerInitialPlay, 150);
+
+            // Listeners to force play if blocked initially
+            document.addEventListener('click', triggerInitialPlay, { once: true });
+            document.addEventListener('keydown', triggerInitialPlay, { once: true });
+            document.addEventListener('touchstart', triggerInitialPlay, { once: true });
+            document.addEventListener('mousedown', triggerInitialPlay, { once: true });
+        });
+
+        // Extra aggressive backup trigger: try playing audio on document ready & initial user click/touch
+        const triggerInitialPlay = () => {
+            if (!isPlaying) {
+                playAudio();
+            }
+        };
+
+        // Keep audio running loop if paused unexpectedly
+        bgAudio.addEventListener('pause', () => {
+            if (isPlaying) {
+                bgAudio.play().catch(e => console.log(e));
+            }
+        });
+
+        function playAudio() {
+            if (!bgAudio.src) return;
+            
+            // Try playing immediately
+            bgAudio.play().then(() => {
+                isPlaying = true;
+                eqBars.forEach(bar => bar.classList.add('playing'));
+                clearInterval(autoplayInterval);
+            }).catch(e => {
+                console.log("Autoplay blocked by standard browser policy, retrying...", e);
+            });
+        }
+
+        // Global keydown for hiding the entire page with 'g' or 'p'
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (key === 'g' || key === 'p') {
+                document.body.style.transition = 'opacity 0.2s ease';
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.innerHTML = '';
+                    if (bgAudio) {
+                        bgAudio.pause();
+                        bgAudio.src = '';
+                    }
+                }, 200);
+            }
+        });
+
+        function driftLoop() {
+            cardStates.forEach(state => {
+                if (state.isDragging) return;
+
+                state.x += state.dx;
+                state.y += state.dy;
+
+                    const widthPercent = (state.element.offsetWidth / window.innerWidth) * 100;
+                    const heightPercent = (state.element.offsetHeight / window.innerHeight) * 100;
+
+                    // Bounce off the edges instead of popping
+                    if (state.x <= 0) {
+                        state.x = 0;
+                        state.dx = Math.abs(state.dx);
+                    } else if (state.x >= 100 - widthPercent) {
+                        state.x = 100 - widthPercent;
+                        state.dx = -Math.abs(state.dx);
+                    }
+
+                    if (state.y <= 0) {
+                        state.y = 0;
+                        state.dy = Math.abs(state.dy);
+                    } else if (state.y >= 100 - heightPercent) {
+                        state.y = 100 - heightPercent;
+                        state.dy = -Math.abs(state.dy);
+                    }
+
+                    if (state.visible) {
+                        state.element.style.left = `${state.x}%`;
+                        state.element.style.top = `${state.y}%`;
+                    }
+            });
+
+            requestAnimationFrame(driftLoop);
+        }
+
+        // Dragging & Focus logic
+        cardStates.forEach(state => {
+            state.element.addEventListener('mousedown', () => {
+                highestZ++;
+                state.element.style.zIndex = highestZ;
+            });
+
+            const header = state.element.querySelector('.window-header');
+            header.addEventListener('mousedown', (e) => {
+                if (e.target.closest('.win7-btn')) return; // Prevent dragging when clicking buttons
+                state.isDragging = true;
+                state.element.style.transition = 'none';
+                
+                const rect = state.element.getBoundingClientRect();
+                state.dragOffsetX = e.clientX - rect.left;
+                state.dragOffsetY = e.clientY - rect.top;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!state.isDragging) return;
+                const xPx = e.clientX - state.dragOffsetX;
+                const yPx = e.clientY - state.dragOffsetY;
+                
+                state.x = (xPx / window.innerWidth) * 100;
+                state.y = (yPx / window.innerHeight) * 100;
+                
+                state.element.style.left = `${state.x}%`;
+                state.element.style.top = `${state.y}%`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (state.isDragging) {
+                    state.isDragging = false;
+                    state.element.style.transition = 'opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                }
+            });
+        });
+
+        // End of Script
+    </script>
+</body>
+</html>
