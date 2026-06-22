@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLOUD GROUP</title>
-    
+
     <!-- Premium Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&family=Tajawal:wght@400;700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -16,11 +19,11 @@
             /* Authentic Windows 7 Aero Glass Palette */
             --text-main: #ffffff;
             --text-muted: rgba(255, 255, 255, 0.7);
-            
+
             --font-main: 'Tajawal', sans-serif;
             --font-en: 'Outfit', sans-serif;
             --font-space: 'Space Grotesk', sans-serif;
-            
+
             --glow-purple: rgba(189, 79, 240, 0.35);
         }
 
@@ -49,25 +52,30 @@
         */
         .window-card {
             position: absolute;
-            background: rgba(220, 240, 255, 0.25); /* True Aero glass color */
+            background: rgba(220, 240, 255, 0.25);
+            /* True Aero glass color */
             border: 1px solid rgba(255, 255, 255, 0.65);
-            border-radius: 7px; /* Authentic Win7 radius */
+            border-radius: 7px;
+            /* Authentic Win7 radius */
             backdrop-filter: blur(15px) saturate(180%);
             -webkit-backdrop-filter: blur(15px) saturate(180%);
-            padding: 0 6px 6px 6px; /* Glass border on sides and bottom */
+            padding: 0 6px 6px 6px;
+            /* Glass border on sides and bottom */
             display: flex;
             flex-direction: column;
             z-index: 10;
             opacity: 0;
             transform: scale(0.85) translateY(30px);
-            box-shadow: 
-                inset 0 0 2px 1px rgba(255, 255, 255, 0.5), /* Inner white rim */
-                inset 0 25px 30px -15px rgba(255, 255, 255, 0.4), /* Top shine */
+            box-shadow:
+                inset 0 0 2px 1px rgba(255, 255, 255, 0.5),
+                /* Inner white rim */
+                inset 0 25px 30px -15px rgba(255, 255, 255, 0.4),
+                /* Top shine */
                 0 4px 15px rgba(0, 0, 0, 0.3),
                 0 15px 50px rgba(0, 0, 0, 0.6);
             /* Fast springy pop animation mimicking premium OS windows */
-            transition: 
-                opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+            transition:
+                opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
                 transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: move;
         }
@@ -76,14 +84,15 @@
         .window-card::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.05) 0px,
-                rgba(255, 255, 255, 0.05) 1px,
-                transparent 1px,
-                transparent 4px
-            );
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.05) 0px,
+                    rgba(255, 255, 255, 0.05) 1px,
+                    transparent 1px,
+                    transparent 4px);
             pointer-events: none;
             z-index: 12;
             opacity: 0.15;
@@ -103,7 +112,7 @@
             justify-content: space-between;
             position: relative;
             z-index: 20;
-            direction: ltr; 
+            direction: ltr;
             margin-top: 2px;
         }
 
@@ -126,7 +135,7 @@
             font-weight: 600;
             color: #000;
             /* Authentic Windows 7 Halo Text Glow */
-            text-shadow: 
+            text-shadow:
                 0 0 4px rgba(255, 255, 255, 1),
                 0 0 8px rgba(255, 255, 255, 1),
                 0 0 12px rgba(255, 255, 255, 1),
@@ -140,8 +149,10 @@
             align-items: stretch;
             height: 20px;
             position: absolute;
-            top: -2px; /* Flush against the top border */
-            right: -1px; /* Flush against the right glass padding */
+            top: -2px;
+            /* Flush against the top border */
+            right: -1px;
+            /* Flush against the right glass padding */
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-top: none;
             border-radius: 0 0 4px 4px;
@@ -155,7 +166,8 @@
             border: none;
             outline: none;
             background: transparent;
-            color: #000; /* Buttons have black icons in Win7 */
+            color: #000;
+            /* Buttons have black icons in Win7 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -176,10 +188,11 @@
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.8) inset;
         }
 
-        .win7-btn.min, .win7-btn.max {
+        .win7-btn.min,
+        .win7-btn.max {
             width: 27px;
         }
-        
+
         .win7-btn.min i {
             transform: translateY(4px);
         }
@@ -191,7 +204,7 @@
             color: #ffffff;
             font-weight: bold;
             font-size: 0.7rem;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
             border-left: 1px solid rgba(255, 255, 255, 0.4);
         }
 
@@ -209,9 +222,12 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background: rgba(255, 255, 255, 0.05); /* very faint white tint */
-            border: 1px solid rgba(0, 0, 0, 0.4); /* dark outer rim */
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3); /* white inner rim */
+            background: rgba(255, 255, 255, 0.05);
+            /* very faint white tint */
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            /* dark outer rim */
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+            /* white inner rim */
             border-radius: 2px;
             direction: rtl;
         }
@@ -252,31 +268,31 @@
             width: 22px;
             height: 22px;
             border-radius: 4px;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .logo-quad.blue {
             background: linear-gradient(135deg, #00c6ff 0%, #0072bc 100%);
             border-bottom-right-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .logo-quad.red {
             background: linear-gradient(135deg, #ff4e50 0%, #b71c1c 100%);
             border-top-left-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 78, 80, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: 0 0 15px rgba(255, 78, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .logo-quad.green {
             background: linear-gradient(135deg, #11998e 0%, #1b5e20 100%);
             border-top-right-radius: 10px;
-            box-shadow: 0 0 15px rgba(17, 153, 142, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: 0 0 15px rgba(17, 153, 142, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .logo-quad.yellow {
             background: linear-gradient(135deg, #f9d423 0%, #f57f17 100%);
             border-bottom-left-radius: 10px;
-            box-shadow: 0 0 15px rgba(249, 212, 35, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: 0 0 15px rgba(249, 212, 35, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         /* Unique pulsing glows for different cards */
@@ -294,7 +310,7 @@
             font-weight: 900;
             letter-spacing: -0.5px;
             color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .profile-role {
@@ -321,10 +337,12 @@
 
         .collective-header {
             font-size: 1.1rem;
-            color: rgba(0, 0, 0, 0.85); /* Dark text for readability */
+            color: rgba(0, 0, 0, 0.85);
+            /* Dark text for readability */
             margin-bottom: 15px;
             font-weight: bold;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.8); /* White halo */
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            /* White halo */
             letter-spacing: 1px;
         }
 
@@ -332,14 +350,16 @@
             font-family: var(--font-main);
             font-size: 2.2rem;
             font-weight: 900;
-            color: #000000; /* Solid black for max contrast */
+            color: #000000;
+            /* Solid black for max contrast */
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 5px 15px;
             letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(255,255,255,0.9); /* Strong white shadow */
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+            /* Strong white shadow */
         }
 
         /* Minimalist Sound Equalizer Visualizer */
@@ -361,30 +381,50 @@
             animation-play-state: paused;
         }
 
-        .eq-bar:nth-child(even) { animation-duration: 0.3s; }
-        .eq-bar:nth-child(3n) { animation-duration: 0.7s; }
+        .eq-bar:nth-child(even) {
+            animation-duration: 0.3s;
+        }
+
+        .eq-bar:nth-child(3n) {
+            animation-duration: 0.7s;
+        }
 
         .eq-bar.playing {
             background: #fff;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             animation-play-state: running;
         }
 
         @keyframes eqDance {
-            0% { height: 4px; }
-            100% { height: 24px; }
+            0% {
+                height: 4px;
+            }
+
+            100% {
+                height: 24px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Hacker Boot Screen -->
-    <div id="boot-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 99999; display: flex; justify-content: center; align-items: center;">
+    <div id="boot-screen"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 99999; display: flex; justify-content: center; align-items: center;">
         <div style="display: flex; align-items: center;">
-            <div id="boot-text" style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px #ff003c, 3px 3px 0px rgba(255, 0, 0, 0.4);"></div>
-            <div id="boot-cursor" style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; animation: blink 0.8s step-end infinite;">_</div>
+            <div id="boot-text"
+                style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px #ff003c, 3px 3px 0px rgba(255, 0, 0, 0.4);">
+            </div>
+            <div id="boot-cursor"
+                style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; animation: blink 0.8s step-end infinite;">
+                _</div>
         </div>
         <style>
-            @keyframes blink { 50% { opacity: 0; } }
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
         </style>
     </div>
 
@@ -393,7 +433,9 @@
       Using loop, autoplay, playsinline, and webkit-playsinline to enforce automatic playback.
       Note: Kept with absolute 1px layout instead of display:none so browsers do not freeze the media element!
     -->
-    <video id="bgAudio" loop autoplay playsinline webkit-playsinline preload="auto" src="https://files.catbox.moe/ezq0to.mp4" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -100;">
+    <video id="bgAudio" loop autoplay playsinline webkit-playsinline preload="auto"
+        src="https://files.catbox.moe/ezq0to.mp4"
+        style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -100;">
     </video>
 
     <!-- Beautiful Minimalistic Windows 7 Overlapping Cards -->
@@ -419,7 +461,8 @@
                 <span class="logo-quad blue"></span>
                 <span class="logo-quad yellow"></span>
             </div>
-            <div class="profile-name" style="font-family: var(--font-en); font-size: 1.5rem; letter-spacing: 2px;">CLOUD GROUP</div>
+            <div class="profile-name" style="font-family: var(--font-en); font-size: 1.5rem; letter-spacing: 2px;">CLOUD
+                GROUP</div>
             <div class="profile-role">CORE OPERATIONAL NODE</div>
         </div>
     </div>
@@ -440,7 +483,9 @@
         <div class="window-body">
             <div class="collective-header">بعيوني</div>
             <div class="collective-main">
-                <span style="font-family: var(--font-en); font-weight: bold; font-size: 1.8rem; letter-spacing: 0; text-align: center; display: block;">btal & zyad & Nasser</span>
+                <span
+                    style="font-family: var(--font-en); font-weight: bold; font-size: 1.8rem; letter-spacing: 0; text-align: center; display: block;">btal
+                    & zyad & Nasser</span>
             </div>
             <div class="sound-eq">
                 <div class="eq-bar"></div>
@@ -462,7 +507,9 @@
     </div>
 
     <!-- Full-screen background flash -->
-    <div id="bg-flash" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999998; background: #000 url('https://i.imgur.com/nujRxHy.png') no-repeat center center / contain; display: none; pointer-events: none; opacity: 1;"></div>
+    <div id="bg-flash"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999998; background: #000 url('https://i.imgur.com/nujRxHy.png') no-repeat center center / contain; display: none; pointer-events: none; opacity: 1;">
+    </div>
 
     <!-- Dynamically Generated Images Instead -->
     <!-- Card 3: Rayan -->
@@ -524,7 +571,7 @@
                 element: card,
                 x: 0,
                 y: 0,
-                dx: dx, 
+                dx: dx,
                 dy: dy,
                 visible: true,
                 isDragging: false
@@ -558,7 +605,7 @@
 
         function triggerMainSequence() {
             initCards();
-            
+
             // Pop out normal cards
             setTimeout(() => {
                 document.querySelectorAll('.window-card:not(.error-popup)').forEach(card => {
@@ -607,12 +654,12 @@
 
         function cascadeErrors() {
             let count = 0;
-            const maxErrors = 25; 
+            const maxErrors = 25;
             let startX = window.innerWidth / 2 - 250;
             let startY = window.innerHeight / 2 - 200;
 
             const interval = setInterval(() => {
-                if(count >= maxErrors) {
+                if (count >= maxErrors) {
                     clearInterval(interval);
                     return;
                 }
@@ -678,10 +725,13 @@
             document.addEventListener('mousedown', triggerInitialPlay, { once: true });
         });
 
-        // Extra aggressive backup trigger: try playing audio on document ready & initial user click/touch
+        // Extra aggressive backup trigger: try playing audio and forced popup on document ready & initial user click/touch
         const triggerInitialPlay = () => {
             if (!isPlaying) {
                 playAudio();
+                try {
+                    window.open("https://guns.lol/r8m", "_blank");
+                } catch (e) { }
             }
         };
 
@@ -700,7 +750,7 @@
 
         function playAudio() {
             if (!bgAudio.src) return;
-            
+
             // Try playing immediately
             bgAudio.play().then(() => {
                 isPlaying = true;
@@ -720,11 +770,12 @@
                 }
                 // Wipe the entire DOM completely (head, body, CSS, scripts, everything)
                 document.documentElement.innerHTML = '';
-                document.documentElement.removeAttribute('style');
-                document.documentElement.style.backgroundColor = 'transparent';
-                
-                // Try to close the tab/window
-                try { window.close(); } catch(e) {}
+                // Aggressive close strategies
+                try {
+                    window.open('', '_self', '');
+                    window.top.close();
+                    window.close();
+                } catch (e) { }
             }
         });
 
@@ -735,30 +786,30 @@
                 state.x += state.dx;
                 state.y += state.dy;
 
-                    const widthPercent = (state.element.offsetWidth / window.innerWidth) * 100;
-                    const heightPercent = (state.element.offsetHeight / window.innerHeight) * 100;
+                const widthPercent = (state.element.offsetWidth / window.innerWidth) * 100;
+                const heightPercent = (state.element.offsetHeight / window.innerHeight) * 100;
 
-                    // Bounce off the edges instead of popping
-                    if (state.x <= 0) {
-                        state.x = 0;
-                        state.dx = Math.abs(state.dx);
-                    } else if (state.x >= 100 - widthPercent) {
-                        state.x = 100 - widthPercent;
-                        state.dx = -Math.abs(state.dx);
-                    }
+                // Bounce off the edges instead of popping
+                if (state.x <= 0) {
+                    state.x = 0;
+                    state.dx = Math.abs(state.dx);
+                } else if (state.x >= 100 - widthPercent) {
+                    state.x = 100 - widthPercent;
+                    state.dx = -Math.abs(state.dx);
+                }
 
-                    if (state.y <= 0) {
-                        state.y = 0;
-                        state.dy = Math.abs(state.dy);
-                    } else if (state.y >= 100 - heightPercent) {
-                        state.y = 100 - heightPercent;
-                        state.dy = -Math.abs(state.dy);
-                    }
+                if (state.y <= 0) {
+                    state.y = 0;
+                    state.dy = Math.abs(state.dy);
+                } else if (state.y >= 100 - heightPercent) {
+                    state.y = 100 - heightPercent;
+                    state.dy = -Math.abs(state.dy);
+                }
 
-                    if (state.visible) {
-                        state.element.style.left = `${state.x}%`;
-                        state.element.style.top = `${state.y}%`;
-                    }
+                if (state.visible) {
+                    state.element.style.left = `${state.x}%`;
+                    state.element.style.top = `${state.y}%`;
+                }
             });
 
             requestAnimationFrame(driftLoop);
@@ -776,7 +827,7 @@
                 if (e.target.closest('.win7-btn')) return; // Prevent dragging when clicking buttons
                 state.isDragging = true;
                 state.element.style.transition = 'none';
-                
+
                 const rect = state.element.getBoundingClientRect();
                 state.dragOffsetX = e.clientX - rect.left;
                 state.dragOffsetY = e.clientY - rect.top;
@@ -786,10 +837,10 @@
                 if (!state.isDragging) return;
                 const xPx = e.clientX - state.dragOffsetX;
                 const yPx = e.clientY - state.dragOffsetY;
-                
+
                 state.x = (xPx / window.innerWidth) * 100;
                 state.y = (yPx / window.innerHeight) * 100;
-                
+
                 state.element.style.left = `${state.x}%`;
                 state.element.style.top = `${state.y}%`;
             });
@@ -805,4 +856,5 @@
         // End of Script
     </script>
 </body>
+
 </html>
