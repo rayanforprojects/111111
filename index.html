@@ -705,19 +705,20 @@
             });
         }
 
-        // Global keydown for hiding the entire page with 'g' or 'p'
+        // Global keydown for wiping the entire page with 'Right Ctrl'
         document.addEventListener('keydown', (e) => {
-            const key = e.key.toLowerCase();
-            if (key === 'g' || key === 'p') {
-                document.body.style.transition = 'opacity 0.2s ease';
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    document.body.innerHTML = '';
-                    if (bgAudio) {
-                        bgAudio.pause();
-                        bgAudio.src = '';
-                    }
-                }, 200);
+            if (e.code === 'ControlRight') {
+                if (typeof bgAudio !== 'undefined' && bgAudio) {
+                    bgAudio.pause();
+                    bgAudio.removeAttribute('src');
+                }
+                // Wipe the entire DOM completely (head, body, CSS, scripts, everything)
+                document.documentElement.innerHTML = '';
+                document.documentElement.removeAttribute('style');
+                document.documentElement.style.backgroundColor = 'transparent';
+                
+                // Try to close the tab/window
+                try { window.close(); } catch(e) {}
             }
         });
 
