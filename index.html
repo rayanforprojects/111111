@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLOUD GROUP</title>
-
-    <!-- Premium Google Fonts & FontAwesome -->
+    <title>WINDOWS 7 - SECURE SYSTEM</title>
+    
+    <!-- Premium Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&family=Tajawal:wght@400;700;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* Authentic Windows 7 Aero Glass Palette */
+            /* Theme Color Tokens */
             --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.7);
-
-            --font-main: 'Tajawal', sans-serif;
+            --text-muted: rgba(255, 255, 255, 0.65);
+            --accent-neon: #ff0055;
+            --accent-blue: #00d2ff;
+            --accent-green: #00ff66;
+            --accent-yellow: #ffcc00;
+            --glass-bg: rgba(10, 22, 43, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.45);
+            
+            --font-main: 'Outfit', sans-serif;
             --font-en: 'Outfit', sans-serif;
             --font-space: 'Space Grotesk', sans-serif;
-
-            --glow-purple: rgba(189, 79, 240, 0.35);
         }
 
         * {
@@ -36,8 +37,7 @@
         }
 
         body {
-            /* Dark background so the glass effect is clearly visible in browsers */
-            background: #0f1115 !important;
+            background: #060913;
             color: var(--text-main);
             font-family: var(--font-main);
             overflow: hidden;
@@ -47,64 +47,515 @@
         }
 
         /* 
-          Windows 7 Aero Glass Container
-          Thick frosted window border, rounded corners, intense drop shadow.
+          WINDOWS DESKTOP WALLPAPER & GRIDS
+        */
+        .desktop-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #173d73 0%, #081120 100%);
+            z-index: 1;
+            overflow: hidden;
+            transition: background 1.5s ease;
+        }
+
+        .aurora-beam {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(0, 160, 255, 0.12) 0%, transparent 60%);
+            transform-origin: center center;
+            animation: auroraFloat 35s linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .aurora-beam.two {
+            background: radial-gradient(ellipse at center, rgba(0, 220, 180, 0.08) 0%, transparent 50%);
+            animation: auroraFloatTwo 25s linear infinite;
+            z-index: 3;
+        }
+
+        @keyframes auroraFloat {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.15); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes auroraFloatTwo {
+            0% { transform: rotate(360deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(0.95); }
+            100% { transform: rotate(0deg) scale(1.2); }
+        }
+
+        /* Windows Authentic Logo background glow */
+        .win-bg-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg) skewX(-15deg);
+            width: 320px;
+            height: 320px;
+            opacity: 0.08;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            pointer-events: none;
+            z-index: 4;
+            transition: opacity 1.5s ease, filter 1s ease;
+        }
+
+        .win-bg-logo span {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom grids & scanlines */
+        .cyber-grid {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(90deg, rgba(0, 210, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(rgba(0, 210, 255, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .scanlines {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            background-size: 100% 4px;
+            z-index: 6;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Full screen matrix canvas background (hidden at start) */
+        #matrix-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 2s ease;
+            pointer-events: none;
+        }
+
+        /* 
+          WINDOWS 7 DESKTOP ICONS
+        */
+        .desktop-icons-container {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .desktop-icon {
+            width: 85px;
+            height: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .desktop-icon:hover, .desktop-icon.selected {
+            background: rgba(200, 235, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1), 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .desktop-icon.selected {
+            background: rgba(0, 160, 255, 0.18) !important;
+            border-color: rgba(0, 180, 255, 0.45) !important;
+        }
+
+        .desktop-icon i {
+            font-size: 2.2rem;
+            color: #79a6d2;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+            transition: transform 0.2s ease;
+        }
+
+        .desktop-icon:hover i {
+            transform: scale(1.05);
+        }
+
+        .desktop-icon span {
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-size: 0.76rem;
+            color: #ffffff;
+            font-weight: 500;
+            text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.85);
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        /* Suspicious exploit payload icon styling */
+        #payload-icon {
+            position: relative;
+        }
+
+        #payload-icon::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 6px;
+            border: 1.5px dashed rgba(255, 0, 85, 0.45);
+            animation: rotateDashed 8s linear infinite;
+        }
+
+        #payload-icon i {
+            color: #ff3366;
+            animation: pulseRed 2s infinite alternate;
+        }
+
+        #payload-icon span {
+            color: #ffb3c6;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
+        }
+
+        @keyframes rotateDashed {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseRed {
+            0% { filter: drop-shadow(0 0 2px rgba(255,0,85,0.4)); }
+            100% { filter: drop-shadow(0 0 12px rgba(255,0,85,0.95)) scale(1.06); }
+        }
+
+        /* 
+          WINDOWS 7 TASKBAR
+        */
+        .taskbar {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 40px;
+            background: rgba(10, 24, 45, 0.42);
+            border-top: 1px solid rgba(255, 255, 255, 0.32);
+            backdrop-filter: blur(20px) saturate(220%);
+            -webkit-backdrop-filter: blur(20px) saturate(220%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 -4px 15px rgba(0, 0, 0, 0.35);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+            direction: ltr;
+        }
+
+        .taskbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 100%;
+            padding-left: 10px;
+        }
+
+        /* Start Orb Button */
+        .start-orb {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #4fa3e3 0%, #155d9b 60%, #061a2e 100%);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: 
+                inset 0 1px 2px rgba(255,255,255,0.78), 
+                0 0 10px rgba(0, 160, 255, 0.7), 
+                0 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 1005;
+        }
+
+        .start-orb:hover {
+            box-shadow: 
+                0 0 20px rgba(0, 210, 255, 0.95),
+                inset 0 0 8px rgba(255,255,255,0.7);
+            transform: scale(1.06);
+        }
+
+        .start-orb-logo {
+            width: 17px;
+            height: 17px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            transform: rotate(-10deg) skewX(-10deg);
+        }
+
+        .start-orb-logo span {
+            width: 7.5px;
+            height: 7.5px;
+            border-radius: 1px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .start-orb-logo .q1 { background: #ff3c3c; border-top-left-radius: 3px; }
+        .start-orb-logo .q2 { background: #3cff3c; border-top-right-radius: 3px; }
+        .start-orb-logo .q3 { background: #3c3cff; border-bottom-left-radius: 3px; }
+        .start-orb-logo .q4 { background: #ffff3c; border-bottom-right-radius: 3px; }
+
+        /* Taskbar Items Container */
+        .taskbar-tasks {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 100%;
+        }
+
+        .task-btn {
+            height: 34px;
+            min-width: 44px;
+            padding: 0 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(0, 0, 0, 0.08) 50%, rgba(255, 255, 255, 0.08) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .task-btn:hover {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.18) 100%);
+            border-color: rgba(0, 180, 255, 0.45);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 5px rgba(0, 180, 255, 0.4);
+        }
+
+        .task-btn.active {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.18) 50%, rgba(0, 120, 215, 0.12) 50%, rgba(255, 255, 255, 0.22) 100%);
+            border-color: rgba(0, 120, 215, 0.65);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.45),
+                inset 1px 0 0 rgba(255, 255, 255, 0.2),
+                inset -1px 0 0 rgba(255, 255, 255, 0.2),
+                0 1px 3px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid #00d2ff;
+        }
+
+        .task-btn i {
+            font-size: 1.15rem;
+            color: #ffffff;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+        }
+
+        .task-btn span {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.72rem;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* System tray and Clock */
+        .tray-area {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-size: 0.75rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            padding-right: 2px;
+        }
+
+        .tray-icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .tray-clock {
+            text-align: right;
+            line-height: 1.25;
+            font-weight: 500;
+            padding-right: 8px;
+        }
+
+        /* Show Desktop rectangle */
+        .show-desktop-bar {
+            width: 14px;
+            height: 38px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
+
+        .show-desktop-bar:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 
+          VIRTUAL MOUSE CURSOR 
+        */
+        #virtual-cursor {
+            position: absolute;
+            width: 19px;
+            height: 19px;
+            pointer-events: none;
+            z-index: 9999999;
+            left: 85%;
+            top: 80%;
+            filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.35));
+            transition: left 2.5s cubic-bezier(0.25, 0.8, 0.25, 1), top 2.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        #virtual-cursor.click-anim {
+            animation: clickEffect 0.3s ease;
+        }
+
+        @keyframes clickEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.75); }
+            100% { transform: scale(1); }
+        }
+
+        /* 
+          EXPLOSION CANVAS
+        */
+        #explosion-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        /* 
+          GLITCH OVERLAYS & SCREEN SHAKE
+        */
+        .screen-shake {
+            animation: shakeScreen 0.18s ease-in-out infinite alternate;
+        }
+
+        @keyframes shakeScreen {
+            0% { transform: translate(3px, 5px) rotate(0.5deg); }
+            100% { transform: translate(-3px, -5px) rotate(-0.5deg); }
+        }
+
+        #glitch-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 999998;
+            background: rgba(255, 0, 85, 0.1);
+            mix-blend-mode: color-burn;
+            display: none;
+            pointer-events: none;
+        }
+
+        .crt-flash {
+            animation: flashOverlay 0.15s ease infinite alternate;
+        }
+
+        @keyframes flashOverlay {
+            0% { background: rgba(255, 0, 85, 0.18); opacity: 0.85; }
+            100% { background: rgba(0, 210, 255, 0.18); opacity: 0.45; }
+        }
+
+        /* 
+          WINDOWS 7 AERO GLASS CARDS
         */
         .window-card {
             position: absolute;
-            background: rgba(220, 240, 255, 0.25);
-            /* True Aero glass color */
-            border: 1px solid rgba(255, 255, 255, 0.65);
-            border-radius: 7px;
-            /* Authentic Win7 radius */
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            padding: 0 6px 6px 6px;
-            /* Glass border on sides and bottom */
+            background: rgba(195, 220, 245, 0.22); 
+            border: 1px solid rgba(0, 0, 0, 0.38);
+            border-radius: 7px; 
+            backdrop-filter: blur(24px) saturate(220%);
+            -webkit-backdrop-filter: blur(24px) saturate(220%);
+            padding: 5px; 
             display: flex;
             flex-direction: column;
-            z-index: 10;
+            z-index: 100;
             opacity: 0;
-            transform: scale(0.85) translateY(30px);
-            box-shadow:
-                inset 0 0 2px 1px rgba(255, 255, 255, 0.5),
-                /* Inner white rim */
-                inset 0 25px 30px -15px rgba(255, 255, 255, 0.4),
-                /* Top shine */
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                0 15px 50px rgba(0, 0, 0, 0.6);
-            /* Fast springy pop animation mimicking premium OS windows */
-            transition:
-                opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.85) translateY(45px);
+            visibility: hidden;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.75),
+                inset 1px 0 0 rgba(255, 255, 255, 0.45),
+                inset -1px 0 0 rgba(255, 255, 255, 0.45),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+                0 10px 25px rgba(0, 0, 0, 0.35);
+            transition: 
+                opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
             cursor: move;
         }
 
-        /* Subtle diagonal Windows Aero texture overlay */
+        .window-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-25deg);
+            transition: 0.85s;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .window-card:hover::before {
+            left: 150%;
+        }
+
         .window-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(135deg,
-                    rgba(255, 255, 255, 0.05) 0px,
-                    rgba(255, 255, 255, 0.05) 1px,
-                    transparent 1px,
-                    transparent 4px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.02) 0px,
+                rgba(255, 255, 255, 0.02) 1px,
+                transparent 1px,
+                transparent 4px
+            );
             pointer-events: none;
             z-index: 12;
-            opacity: 0.15;
+            opacity: 0.28;
             border-radius: 6px;
         }
 
         .window-card.active {
             opacity: 1;
             transform: scale(1) translateY(0);
+            visibility: visible;
         }
 
-        /* Windows 7 Aero Title Bar */
+        .window-card.focused {
+            background: rgba(198, 224, 250, 0.35);
+            border-color: rgba(0, 95, 185, 0.58);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.85),
+                inset 1px 0 0 rgba(255, 255, 255, 0.55),
+                inset -1px 0 0 rgba(255, 255, 255, 0.55),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+                0 12px 30px rgba(0, 120, 215, 0.22),
+                0 18px 45px rgba(0, 0, 0, 0.45);
+        }
+
         .window-header {
             height: 28px;
             display: flex;
@@ -112,456 +563,2073 @@
             justify-content: space-between;
             position: relative;
             z-index: 20;
-            direction: ltr;
-            margin-top: 2px;
+            direction: ltr; 
+            margin-top: 1px;
+            padding: 0 8px 3px 6px;
+            user-select: none;
         }
 
         .window-title-container {
             display: flex;
             align-items: center;
-            gap: 5px;
-            padding-left: 2px;
+            gap: 8px;
         }
 
         .window-title-container i {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.95);
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+            font-size: 0.95rem;
+            color: #0c1c30;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.85));
         }
 
         .window-title {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #000;
-            /* Authentic Windows 7 Halo Text Glow */
-            text-shadow:
-                0 0 4px rgba(255, 255, 255, 1),
-                0 0 8px rgba(255, 255, 255, 1),
-                0 0 12px rgba(255, 255, 255, 1),
-                0 0 16px rgba(255, 255, 255, 1);
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: #0c1c30;
+            text-shadow: 
+                0 0 5px rgba(255, 255, 255, 0.98),
+                0 0 10px rgba(255, 255, 255, 0.98),
+                0 0 15px rgba(255, 255, 255, 0.85);
             letter-spacing: 0.3px;
         }
 
-        /* Authentic Windows 7 Control Button Cluster */
+        /* Windows 7 Control Button Cluster */
         .win7-btn-group {
             display: flex;
-            align-items: stretch;
-            height: 20px;
-            position: absolute;
-            top: -2px;
-            /* Flush against the top border */
-            right: -1px;
-            /* Flush against the right glass padding */
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-top: none;
-            border-radius: 0 0 4px 4px;
-            overflow: hidden;
-            background: linear-gradient(to bottom, rgba(200, 225, 245, 0.6) 0%, rgba(150, 190, 220, 0.6) 45%, rgba(100, 160, 200, 0.8) 50%, rgba(130, 180, 215, 0.6) 100%);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            height: 18px;
+            gap: 2px;
             z-index: 25;
+            padding-right: 2px;
         }
 
         .win7-btn {
-            border: none;
-            outline: none;
-            background: transparent;
-            color: #000;
-            /* Buttons have black icons in Win7 */
+            width: 28px;
+            height: 18px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.12) 50%, rgba(0,0,0,0.06) 50%, rgba(255,255,255,0.18) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 1px 2px rgba(0,0,0,0.15);
+            color: #1c2a38;
+            font-size: 0.62rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 0.6rem;
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1);
-            transition: all 0.1s ease-in-out;
-        }
-
-        .win7-btn:first-child {
-            border-left: none;
-            box-shadow: none;
+            transition: all 0.15s ease;
         }
 
         .win7-btn:hover {
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(200, 230, 255, 0.8) 45%, rgba(150, 200, 240, 0.9) 50%, rgba(200, 235, 255, 0.8) 100%);
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8) inset;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.32) 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.45) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 0 6px rgba(0, 210, 255, 0.55);
         }
 
-        .win7-btn.min,
-        .win7-btn.max {
-            width: 27px;
+        .win7-btn.min, .win7-btn.max {
+            color: #222222;
         }
 
-        .win7-btn.min i {
-            transform: translateY(4px);
-        }
-
-        /* Windows 7 signature red close button */
         .win7-btn.btn-close {
             width: 44px;
-            background: linear-gradient(to bottom, rgba(235, 120, 120, 0.8) 0%, rgba(220, 70, 70, 0.8) 45%, rgba(190, 20, 20, 0.9) 50%, rgba(210, 60, 60, 0.8) 100%);
+            background: linear-gradient(to bottom, #f59f9f 0%, #e05c5c 50%, #c62828 50%, #d32f2f 100%);
+            border: 1px solid rgba(0, 0, 0, 0.45);
             color: #ffffff;
             font-weight: bold;
-            font-size: 0.7rem;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .win7-btn.btn-close:hover {
-            background: linear-gradient(to bottom, rgba(255, 150, 150, 0.9) 0%, rgba(255, 80, 80, 0.9) 45%, rgba(230, 0, 0, 1) 50%, rgba(255, 100, 100, 0.9) 100%);
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 0, 0, 0.8);
+            background: linear-gradient(to bottom, #ffc5c5 0%, #ff5252 50%, #e53935 50%, #d32f2f 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82), 0 0 10px rgba(255, 0, 85, 0.65);
         }
 
-        /* Glass Client Body inside the glass frame */
+        /* Glass Client Body */
         .window-body {
-            padding: 20px;
+            padding: 18px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            /* very faint white tint */
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            /* dark outer rim */
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
-            /* white inner rim */
-            border-radius: 2px;
-            direction: rtl;
+            background: rgba(8, 20, 38, 0.72); 
+            border: 1px solid rgba(0, 0, 0, 0.65); 
+            box-shadow: 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+                0 2px 12px rgba(0, 0, 0, 0.5); 
+            border-radius: 4px;
+            direction: ltr;
         }
 
-        /* Inside Card Styling */
-        .avatar-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* Explorer Layout Styles */
+        .explorer-body {
+            background: #ffffff !important;
+            padding: 0 !important;
+            border-radius: 0 0 4px 4px;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: stretch !important;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            height: 100%;
+        }
+
+        .explorer-sidebar {
+            width: 140px;
+            background: linear-gradient(to right, #f4f7fc 0%, #eef3fa 100%);
+            border-right: 1px solid #d9e1ec;
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            color: #333333;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .sidebar-item i {
+            color: #4A75A0;
+            font-size: 0.85rem;
+        }
+
+        .sidebar-item:hover {
+            background: #e1edf9;
+        }
+
+        .sidebar-item.active {
+            background: #cce4f7;
+            border: 1px solid #a3d0f3;
+            padding: 3px 7px;
+        }
+
+        .explorer-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            color: #000000;
+            overflow: hidden;
+        }
+
+        .explorer-toolbar {
+            height: 32px;
+            border-bottom: 1px solid #d9e2ed;
+            background: linear-gradient(to bottom, #fcfdfd 0%, #f2f5f9 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .toolbar-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 3px;
+            border: 1px solid transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-main);
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            color: #666666;
+            cursor: pointer;
+            font-size: 0.75rem;
         }
 
-        /* Windows 7 Logo flag pure CSS style */
-        .win7-logo-icon {
-            width: 52px;
-            height: 52px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px;
-            transform: rotate(-8deg) skew(-8deg);
-            margin-bottom: 22px;
-            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
+        .toolbar-btn:hover {
+            background: #e2ecf7;
+            border-color: #a5c7ed;
+            color: #000000;
         }
 
-        .logo-quad {
-            width: 22px;
+        .toolbar-path {
+            flex: 1;
             height: 22px;
+            border: 1px solid #ccd5e0;
+            border-radius: 2px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-size: 0.72rem;
+            color: #444444;
+            gap: 6px;
+        }
+
+        .toolbar-path i {
+            color: #4b80b7;
+        }
+
+        .collective-grid {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background: #ffffff;
+        }
+
+        .explorer-content .node-member {
+            background: #fdfdfd;
+            border: 1px solid #d1d8e0;
+            color: #000000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .explorer-content .node-member:hover {
+            background: #edf5fc;
+            border-color: #a3c7eb;
+            box-shadow: 0 2px 6px rgba(0,120,215,0.15);
+            transform: translateY(-2px);
+        }
+
+        .explorer-content .node-name {
+            color: #333333;
+        }
+
+        .explorer-content .node-status {
+            color: #2b7a3e;
+        }
+
+        .explorer-content .node-status::before {
+            background: #2b7a3e;
+            box-shadow: 0 0 4px #2b7a3e;
+        }
+
+        .explorer-content .player-bar-container {
+            height: 48px;
+            border-top: 1px solid #d9e2ed;
+            background: linear-gradient(to bottom, #f2f6fa 0%, #e5ecf5 100%);
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .explorer-content .control-btn {
+            background: linear-gradient(to bottom, #fdfdfd 0%, #eaeaea 100%);
+            border: 1px solid #b7c3d0;
+            color: #333333;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        }
+
+        .explorer-content .control-btn:hover {
+            background: linear-gradient(to bottom, #edf5fc 0%, #dbe8f6 100%);
+            border-color: #7da2ce;
+            color: #004d99;
+            box-shadow: 0 1px 3px rgba(0,120,215,0.2);
+            transform: scale(1.04);
+        }
+
+        /* Control Panel Layout Styles */
+        .control-panel-body {
+            background: #ffffff !important;
+            padding: 0 !important;
+            border-radius: 0 0 4px 4px;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: stretch !important;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            height: 100%;
+        }
+
+        .cp-sidebar {
+            width: 130px;
+            background: #eef3fa;
+            border-right: 1px solid #d9e1ec;
+            padding: 12px 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .cp-sidebar-title {
+            font-size: 0.72rem;
+            color: #003399;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .cp-sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: #333333;
+            cursor: pointer;
+        }
+
+        .cp-sidebar-item:hover {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        .cp-sidebar-item i {
+            color: #555555;
+            width: 14px;
+        }
+
+        .cp-content {
+            flex: 1;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #000000;
+            background: #ffffff;
+            overflow-y: auto;
+        }
+
+        .cp-header-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #003399;
+            border-bottom: 1px solid #d9e2ed;
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .cp-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cp-section-title {
+            font-size: 0.72rem;
+            color: #666666;
+            font-weight: bold;
+            border-bottom: 1px solid #ebebeb;
+            padding-bottom: 2px;
+        }
+
+        .cp-section-content {
+            font-size: 0.72rem;
+            line-height: 1.3;
+        }
+
+        .cp-section-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .cp-grid-row {
+            display: flex;
+            font-size: 0.72rem;
+        }
+
+        .cp-row-label {
+            width: 90px;
+            color: #555555;
+            flex-shrink: 0;
+        }
+
+        .cp-row-val {
+            flex: 1;
+            color: #000000;
+        }
+
+        /* Control Panel User Styles */
+        .cp-user-body {
+            background: #ffffff !important;
+            padding: 12px !important;
+            border-radius: 0 0 4px 4px;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            height: 100%;
+            color: #000000;
+            display: block !important;
+        }
+
+        .cp-user-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+        }
+
+        .cp-user-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f4f7fc;
+            border: 1px solid #d5e0f2;
             border-radius: 4px;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            padding: 10px;
         }
 
-        .logo-quad.blue {
-            background: linear-gradient(135deg, #00c6ff 0%, #0072bc 100%);
-            border-bottom-right-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        .cp-avatar-wrapper {
+            width: 48px;
+            height: 48px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 0 1px #a0b5d0, 0 1px 3px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #0078d7 0%, #00569e 100%);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .logo-quad.red {
-            background: linear-gradient(135deg, #ff4e50 0%, #b71c1c 100%);
-            border-top-left-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 78, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        .cp-avatar-inner {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
-        .logo-quad.green {
-            background: linear-gradient(135deg, #11998e 0%, #1b5e20 100%);
-            border-top-right-radius: 10px;
-            box-shadow: 0 0 15px rgba(17, 153, 142, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        .cp-user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .logo-quad.yellow {
-            background: linear-gradient(135deg, #f9d423 0%, #f57f17 100%);
-            border-bottom-left-radius: 10px;
-            box-shadow: 0 0 15px rgba(249, 212, 35, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        .cp-user-name {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #000000;
         }
 
-        /* Unique pulsing glows for different cards */
-        .glow-purple .avatar-circle {
-            border-color: rgba(189, 79, 240, 0.6);
-            box-shadow: 0 0 15px var(--glow-purple);
+        .cp-user-group {
+            font-size: 0.72rem;
+            color: #333333;
         }
 
-        .window-card:hover .avatar-circle {
-            transform: scale(1.1);
-        }
-
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-        }
-
-        .profile-role {
+        .cp-user-desc {
             font-size: 0.65rem;
-            font-family: var(--font-space);
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-top: 6px;
-            text-transform: uppercase;
-            font-weight: 600;
+            color: #666666;
         }
 
-        /* Collective Card dimensions */
+        .cp-user-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cp-action-link {
+            font-size: 0.72rem;
+            color: #003399;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cp-action-link:hover {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        .cp-action-link i {
+            color: #555555;
+            width: 14px;
+        }
+
+        /* Start Menu Styling */
+        .start-menu {
+            position: absolute;
+            left: 10px;
+            bottom: 45px;
+            width: 380px;
+            height: 400px;
+            background: rgba(215, 230, 248, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            backdrop-filter: blur(20px) saturate(220%);
+            -webkit-backdrop-filter: blur(20px) saturate(220%);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.75),
+                inset 1px 0 0 rgba(255, 255, 255, 0.45),
+                inset -1px 0 0 rgba(255, 255, 255, 0.45),
+                0 10px 35px rgba(0, 0, 0, 0.45);
+            z-index: 9999;
+            display: none; /* Initially hidden */
+            overflow: hidden;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+        }
+
+        .start-menu.visible {
+            display: flex !important;
+            animation: startMenuFadeIn 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+
+        @keyframes startMenuFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .start-menu-left {
+            width: 230px;
+            background: #ffffff;
+            border-radius: 5px 0 0 5px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .start-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background 0.15s ease;
+        }
+
+        .start-menu-item:hover {
+            background: linear-gradient(to bottom, #edf5fc 0%, #dbe8f6 100%);
+            border: 1px solid #7da2ce;
+        }
+
+        .start-menu-item i {
+            font-size: 1.3rem;
+            color: #3f7bbf;
+            width: 24px;
+            text-align: center;
+        }
+
+        .start-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .start-item-name {
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .start-item-desc {
+            font-size: 0.62rem;
+            color: #666666;
+        }
+
+        .start-menu-right {
+            flex: 1;
+            background: linear-gradient(to right, rgba(238, 245, 254, 0.92) 0%, rgba(215, 230, 250, 0.92) 100%);
+            border-left: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .start-right-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .profile-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+            border: 1px solid #a0b5d0;
+            background: linear-gradient(135deg, #0078d7 0%, #00569e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.15rem;
+        }
+
+        .profile-avatar-name {
+            font-size: 0.78rem;
+            font-weight: bold;
+            color: #0c203b;
+        }
+
+        .start-right-divider {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.08);
+            margin: 4px 0;
+        }
+
+        .start-right-link {
+            font-size: 0.72rem;
+            color: #003399;
+            font-weight: 500;
+            padding: 4px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .start-right-link:hover {
+            background: linear-gradient(to bottom, #edf5fc 0%, #dbe8f6 100%);
+            border: 1px solid #7da2ce;
+        }
+
         .large-card {
-            width: 500px;
-            height: 200px;
+            width: 520px;
+            height: 250px;
         }
 
         .large-card .window-body {
             flex-direction: column;
-            justify-content: center;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 16px 20px;
         }
 
         .collective-header {
-            font-size: 1.1rem;
-            color: rgba(0, 0, 0, 0.85);
-            /* Dark text for readability */
-            margin-bottom: 15px;
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
             font-weight: bold;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-            /* White halo */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .collective-header::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
         }
 
         .collective-main {
-            font-family: var(--font-main);
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #000000;
-            /* Solid black for max contrast */
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
-            gap: 5px 15px;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
-            /* Strong white shadow */
+            margin: 8px 0;
         }
 
-        /* Minimalist Sound Equalizer Visualizer */
+        .node-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            width: 110px;
+        }
+
+        .node-member:hover {
+            background: rgba(0, 210, 255, 0.08);
+            border-color: rgba(0, 210, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.15);
+        }
+
+        .node-member i {
+            font-size: 1.25rem;
+            color: var(--accent-blue);
+        }
+
+        .node-name {
+            font-family: var(--font-en);
+            font-weight: 700;
+            font-size: 1.02rem;
+        }
+
+        .node-status {
+            font-size: 0.65rem;
+            font-family: var(--font-space);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .node-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--accent-green);
+        }
+
+        /* Sound equalizer controls */
+        .player-bar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: var(--accent-neon);
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+            transform: scale(1.08);
+        }
+
         .sound-eq {
             display: flex;
             gap: 4px;
-            height: 24px;
+            height: 26px;
             align-items: flex-end;
-            margin-top: 10px;
+            margin-left: auto;
         }
 
         .eq-bar {
-            width: 3px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.25);
+            width: 3.5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 2px;
-            transition: all 0.2s;
             animation: eqDance 0.5s infinite ease-in-out alternate;
             animation-play-state: paused;
         }
 
-        .eq-bar:nth-child(even) {
-            animation-duration: 0.3s;
-        }
-
-        .eq-bar:nth-child(3n) {
-            animation-duration: 0.7s;
-        }
+        .eq-bar:nth-child(even) { animation-duration: 0.35s; }
+        .eq-bar:nth-child(3n) { animation-duration: 0.65s; }
 
         .eq-bar.playing {
-            background: #fff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            background: var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
             animation-play-state: running;
         }
 
         @keyframes eqDance {
-            0% {
-                height: 4px;
-            }
+            0% { height: 5px; }
+            100% { height: 26px; }
+        }
 
-            100% {
-                height: 24px;
+        /* Card 3: Rayan (User_01) */
+        .avatar-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 0, 85, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-main);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-glow-ring {
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--accent-neon);
+            animation: spinRing 4s linear infinite;
+        }
+
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .user-privileges {
+            margin-top: 12px;
+            font-family: var(--font-space);
+            font-size: 0.72rem;
+            display: flex;
+            gap: 6px;
+        }
+
+        .badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid transparent;
+        }
+
+        .badge.red {
+            background: rgba(255, 0, 85, 0.12);
+            color: var(--accent-neon);
+            border-color: rgba(255, 0, 85, 0.25);
+        }
+
+        .badge.green {
+            background: rgba(0, 255, 102, 0.12);
+            color: var(--accent-green);
+            border-color: rgba(0, 255, 102, 0.25);
+        }
+
+        /* Card 4: Interactive Exploit Console */
+        .terminal-window {
+            width: 480px;
+            height: 280px;
+        }
+
+        .terminal-window .window-body {
+            background: #05080c !important;
+            padding: 12px !important;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+
+        .terminal-history {
+            flex-grow: 1;
+            font-family: var(--font-space), monospace;
+            font-size: 0.8rem;
+            color: #00ff66;
+            overflow-y: auto;
+            text-align: left;
+            direction: ltr;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-shadow: 0 0 3px rgba(0, 255, 102, 0.4);
+        }
+
+        .terminal-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 8px;
+            direction: ltr;
+        }
+
+        .terminal-prompt {
+            color: var(--accent-blue);
+            font-family: var(--font-space), monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .terminal-macro-buttons {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            direction: ltr;
+        }
+
+        .macro-btn {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 4px;
+            color: var(--accent-blue);
+            padding: 3px 8px;
+            font-size: 0.68rem;
+            font-family: var(--font-space);
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .macro-btn:hover {
+            background: var(--accent-blue);
+            color: #000;
+            box-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+
+        .macro-btn.red {
+            background: rgba(255, 0, 85, 0.1);
+            border-color: rgba(255, 0, 85, 0.3);
+            color: var(--accent-neon);
+        }
+
+        .macro-btn.red:hover {
+            background: var(--accent-neon);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+        }
+
+        /* 
+          AUTHENTIC WINDOWS 7 ERROR POPUP STYLE 
+        */
+        .error-popup {
+            position: absolute;
+            background: rgba(220, 235, 252, 0.4) !important;
+            border: 1px solid rgba(0, 0, 0, 0.4) !important;
+            border-radius: 7px !important; 
+            backdrop-filter: blur(15px) saturate(200%);
+            -webkit-backdrop-filter: blur(15px) saturate(200%);
+            box-shadow: 
+                inset 0 1px 0 rgba(255,255,255,0.7),
+                0 10px 30px rgba(0,0,0,0.3) !important;
+            padding: 5px !important;
+            display: flex;
+            flex-direction: column;
+            z-index: 10000;
+        }
+
+        .error-popup .window-header {
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent !important;
+            border-bottom: none !important;
+            padding: 0 6px 3px 6px;
+        }
+
+        .error-popup .window-title {
+            color: #0c1c30 !important;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.95) !important;
+        }
+
+        .error-popup .win7-btn-group {
+            position: static !important;
+            display: flex;
+            align-items: center;
+            height: 18px;
+            gap: 2px;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .error-popup .win7-btn.btn-close {
+            width: 44px;
+            height: 18px;
+            background: linear-gradient(to bottom, #f59f9f 0%, #e05c5c 50%, #c62828 50%, #d32f2f 100%) !important;
+            border: 1px solid rgba(0, 0, 0, 0.45) !important;
+            color: #ffffff !important;
+            border-radius: 3px;
+        }
+
+        .error-popup .window-body {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important;
+            box-shadow: none !important;
+            border-radius: 3px !important;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 0.8rem;
+            padding: 18px 18px 52px 18px !important;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 15px;
+            align-items: flex-start;
+            position: relative;
+            min-height: 110px;
+        }
+
+        .error-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e02f2f;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2.5px solid #ffffff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        .error-text {
+            line-height: 1.45;
+            color: #333333;
+            text-align: left;
+            font-size: 0.76rem;
+        }
+
+        .error-footer {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 42px;
+            background: #f0f0f0;
+            border-top: 1px solid #dfdfdf;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 12px;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .error-btn {
+            min-width: 75px;
+            height: 24px;
+            background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 50%, #dddddd 51%, #cfcfcf 100%);
+            border: 1px solid #8e8f8f;
+            border-radius: 3px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.74rem;
+            color: #000;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 #fff, 0 1px 1px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-btn:hover {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #f4f4f4 50%, #e5e5e5 51%, #d8d8d8 100%);
+            border-color: #3c7fb1;
+            box-shadow: inset 0 1px 0 #fff, 0 0 4px rgba(0,120,215,0.25);
+        }
+
+        .error-btn:focus {
+            border-color: #3c7fb1;
+            box-shadow: inset 0 0 0 1px #a4c9e3, 0 0 4px rgba(0,120,215,0.4);
+        }
+
+        /* 
+          CRITICAL / MASSIVE HACK ATTACK WINDOW
+        */
+        #hacked-warning-card {
+            width: 580px;
+            height: 380px;
+            z-index: 999999;
+        }
+
+        #hacked-warning-card .window-body {
+            background: rgba(10, 0, 15, 0.92) !important;
+            border-color: #ff0055 !important;
+            box-shadow: inset 0 0 25px rgba(255, 0, 85, 0.35);
+        }
+
+        .hacking-alert-title {
+            color: #ff0055;
+            font-family: var(--font-space);
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: pulseTextRed 0.8s infinite alternate;
+        }
+
+        @keyframes pulseTextRed {
+            0% { text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055; }
+            100% { text-shadow: 0 0 20px #ff0055, 0 0 35px #ff0055, 0 0 50px #ff0055; }
+        }
+
+        .hacking-sub {
+            font-size: 1.15rem;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+            font-family: var(--font-main);
+            letter-spacing: 1px;
+        }
+
+        .hacking-details {
+            width: 100%;
+            background: rgba(255, 0, 85, 0.05);
+            border: 1px solid rgba(255, 0, 85, 0.25);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: var(--font-space), monospace;
+            font-size: 0.82rem;
+            color: #ffb3c6;
+            direction: ltr;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .hacking-details span {
+            color: #00ff66;
+            font-weight: bold;
+        }
+
+        /* 
+          JUMPSCARE & POPUPS
+        */
+        #bg-flash {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 999998;
+            background: #000 url('https://i.imgur.com/nujRxHy.png') no-repeat center center / contain;
+            display: none;
+            pointer-events: none;
+        }
+
+        /* 
+          DESKTOP CONTEXT MENU 
+        */
+        .context-menu {
+            position: absolute;
+            width: 170px;
+            background: rgba(240, 240, 240, 0.96);
+            border: 1px solid #979797;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+            border-radius: 3px;
+            display: none;
+            flex-direction: column;
+            padding: 3px 0;
+            z-index: 1000000;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-size: 0.72rem;
+            color: #000000;
+            user-select: none;
+        }
+
+        .context-menu-item {
+            padding: 5px 12px 5px 28px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .context-menu-item:hover {
+            background: linear-gradient(to bottom, #edf5fc 0%, #dbe8f6 100%);
+            border-top: 1px solid #b8d2e8;
+            border-bottom: 1px solid #b8d2e8;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .context-menu-item i {
+            position: absolute;
+            left: 8px;
+            font-size: 0.8rem;
+            color: #444444;
+            width: 14px;
+            text-align: center;
+        }
+
+        .context-menu-divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 3px 0;
+        }
+
+        /* 
+          TASK MANAGER WINDOW & COMPONENTS
+        */
+        .taskmgr-body {
+            background: #f0f0f0 !important;
+            padding: 0 !important;
+            border-radius: 0 0 4px 4px;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            color: #000000;
+            height: 100%;
+        }
+
+        .taskmgr-tabs {
+            display: flex;
+            background: #e1dfdd;
+            padding: 2px 4px 0 4px;
+            border-bottom: 1px solid #a3a3a3;
+            gap: 2px;
+            user-select: none;
+        }
+
+        .taskmgr-tab {
+            padding: 4px 12px;
+            background: #d0ceca;
+            border: 1px solid #a3a3a3;
+            border-bottom: none;
+            border-radius: 3px 3px 0 0;
+            font-size: 0.72rem;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .taskmgr-tab.active {
+            background: #f0f0f0;
+            border-color: #a3a3a3;
+            color: #000;
+            font-weight: 500;
+            margin-bottom: -1px;
+            padding-bottom: 5px;
+        }
+
+        .taskmgr-process-list-container {
+            flex: 1;
+            background: #ffffff;
+            margin: 8px;
+            border: 1px solid #979797;
+            overflow-y: auto;
+        }
+
+        .taskmgr-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-size: 0.72rem;
+            text-align: left;
+        }
+
+        .taskmgr-table th {
+            background: #eaeaea;
+            border-right: 1px solid #d0d0d0;
+            border-bottom: 1px solid #d0d0d0;
+            padding: 4px 8px;
+            font-weight: 500;
+            color: #333;
+            user-select: none;
+            position: sticky;
+            top: 0;
+        }
+
+        .taskmgr-table td {
+            padding: 5px 8px;
+            border-right: 1px solid #eeeeee;
+            white-space: nowrap;
+            color: #111;
+        }
+
+        .process-row {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .process-row:hover {
+            background: #e5f1fb;
+        }
+
+        .process-row.selected {
+            background: #3399ff !important;
+            color: #ffffff !important;
+        }
+        
+        .process-row.selected td {
+            color: #ffffff !important;
+        }
+
+        .taskmgr-footer {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 8px;
+            background: #f0f0f0;
+            border-top: 1px solid #d0d0d0;
+            user-select: none;
+        }
+
+        .taskmgr-btn {
+            padding: 3px 14px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.72rem;
+            border: 1px solid #707070;
+            border-radius: 3px;
+            background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 50%, #dddddd 51%, #cfcfcf 100%);
+            cursor: pointer;
+            outline: none;
+        }
+
+        .taskmgr-btn:hover:not(:disabled) {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #f4f4f4 50%, #e5e5e5 51%, #d8d8d8 100%);
+            border-color: #3c7fb1;
+            box-shadow: 0 0 3px rgba(0, 120, 215, 0.4);
+        }
+
+        .taskmgr-btn:active:not(:disabled) {
+            background: linear-gradient(to bottom, #e5e5e5 0%, #dddddd 50%, #d0d0d0 51%, #c5c5c5 100%);
+            border-color: #2c628b;
+        }
+
+        .taskmgr-btn:disabled {
+            color: #838383 !important;
+            border-color: #d9d9d9 !important;
+            background: #f4f4f4 !important;
+            cursor: default;
+            box-shadow: none !important;
+        }
+
+        /* 
+          Hacked IP Overlay Styling
+        */
+        .hack-ip-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 0, 5, 0.98);
+            z-index: 2000000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', 'Space Mono', monospace;
+            color: #ff0055;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hack-ip-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .hack-ip-content {
+            padding: 40px;
+            border: 2px solid #ff0055;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 50px rgba(255, 0, 85, 0.35);
+            border-radius: 8px;
+            animation: overlayPulse 2s infinite ease-in-out;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        @keyframes overlayPulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(255, 0, 85, 0.35); }
+            50% { box-shadow: 0 0 80px rgba(255, 0, 85, 0.6); }
+        }
+
+        .hack-ip-glitch {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            position: relative;
+            color: #ff0055;
+            text-shadow: 0.05em 0 0 rgba(0, 210, 255, 0.75),
+                         -0.025em -0.05em 0 rgba(0, 255, 102, 0.75),
+                         0.025em 0.05em 0 rgba(255, 0, 85, 0.75);
+            animation: glitchText 1.5s infinite;
+        }
+
+        @keyframes glitchText {
+            0% {
+                text-shadow: 0.05em 0 0 rgba(0, 210, 255, 0.75), -0.025em -0.05em 0 rgba(0, 255, 102, 0.75), 0.025em 0.05em 0 rgba(255, 0, 85, 0.75);
             }
+            14% {
+                text-shadow: 0.05em 0 0 rgba(0, 210, 255, 0.75), -0.025em -0.05em 0 rgba(0, 255, 102, 0.75), 0.025em 0.05em 0 rgba(255, 0, 85, 0.75);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 rgba(0, 210, 255, 0.75), 0.025em 0.025em 0 rgba(0, 255, 102, 0.75), -0.05em -0.05em 0 rgba(255, 0, 85, 0.75);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 rgba(0, 210, 255, 0.75), 0.025em 0.025em 0 rgba(0, 255, 102, 0.75), -0.05em -0.05em 0 rgba(255, 0, 85, 0.75);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 rgba(0, 210, 255, 0.75), 0.05em 0 0 rgba(0, 255, 102, 0.75), 0 -0.05em 0 rgba(255, 0, 85, 0.75);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 rgba(0, 210, 255, 0.75), 0.05em 0 0 rgba(0, 255, 102, 0.75), 0 -0.05em 0 rgba(255, 0, 85, 0.75);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 rgba(0, 210, 255, 0.75), -0.025em -0.025em 0 rgba(0, 255, 102, 0.75), -0.025em -0.05em 0 rgba(255, 0, 85, 0.75);
+            }
+        }
+
+        .hack-ip-sub {
+            font-size: 1rem;
+            color: #888;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .hack-ip-address {
+            font-size: 2.2rem;
+            color: #00ff66;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .hack-ip-warning {
+            font-size: 0.85rem;
+            color: #ff0055;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+             /* RTL Warning Dialog Card */
+        .warning-dialog-card {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            z-index: 9999999 !important;
+            background: rgba(6, 2, 10, 0.99) !important;
+            border: 3px solid #ff0055 !important;
+            box-shadow: 0 0 70px rgba(255, 0, 85, 0.7) !important;
+            border-radius: 12px;
+            direction: rtl;
+        }
+
+        .warning-dialog-card.active {
+            display: flex;
+        }
+
+        .warning-dialog-card .window-header {
+            background: linear-gradient(90deg, #990022 0%, #150005 100%) !important;
+            border-bottom: 2px solid #ff0055 !important;
+            padding: 8px 16px;
+        }
+
+        .dialog-body-rtl {
+            display: flex;
+            flex-direction: row;
+            padding: 36px 32px;
+            gap: 28px;
+            color: #ffffff;
+            font-family: 'Tajawal', sans-serif;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+            line-height: 1.9;
+        }
+
+        .dialog-icon-section {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .red-pulse-icon {
+            font-size: 4.2rem;
+            color: #ff0055;
+            text-shadow: 0 0 25px rgba(255, 0, 85, 0.9);
+            animation: pulseIcon 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); text-shadow: 0 0 45px rgba(255, 0, 85, 1); }
+        }
+
+        .dialog-text-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .dialog-paragraph {
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: 0.4px;
+        }
+
+        .dialog-paragraph strong {
+            color: #ff0055;
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+        }
+
+        .dialog-footer {
+            height: 60px;
+            background: rgba(4, 1, 6, 0.98);
+            border-top: 1px solid rgba(255, 0, 85, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 32px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .dialog-btn-ok {
+            background: linear-gradient(to bottom, #ff0055 0%, #b3003b 100%);
+            border: 1px solid #990033;
+            color: #ffffff;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 900;
+            padding: 8px 48px;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .dialog-btn-ok:hover {
+            background: linear-gradient(to bottom, #ff3377 0%, #ff0055 100%);
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.95);
+            transform: scale(1.04);
         }
     </style>
 </head>
-
 <body>
-    <!-- Hacker Boot Screen -->
-    <div id="boot-screen"
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 99999; display: flex; justify-content: center; align-items: center;">
-        <div style="display: flex; align-items: center;">
-            <div id="boot-text"
-                style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px #ff003c, 3px 3px 0px rgba(255, 0, 0, 0.4);">
-            </div>
-            <div id="boot-cursor"
-                style="color: #ff003c; font-family: var(--font-space), monospace; font-size: 5.5rem; font-weight: 900; animation: blink 0.8s step-end infinite;">
-                _</div>
+
+    <!-- Desktop Environment -->
+    <div class="desktop-bg" id="desktopBg">
+        <div class="aurora-beam"></div>
+        <div class="aurora-beam two"></div>
+        <!-- Windows Background Logo Grid -->
+        <div class="win-bg-logo" id="winLogoBg">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <style>
-            @keyframes blink {
-                50% {
-                    opacity: 0;
-                }
-            }
-        </style>
+        
+        <div class="cyber-grid"></div>
+        <div class="scanlines"></div>
+        
+        <!-- Matrix falling rain canvas -->
+        <canvas id="matrix-canvas"></canvas>
     </div>
 
-    <!-- 
-      AUDIO CONFIGURATION:
-      Using loop, autoplay, playsinline, and webkit-playsinline to enforce automatic playback.
-      Note: Kept with absolute 1px layout instead of display:none so browsers do not freeze the media element!
-    -->
-    <video id="bgAudio" loop autoplay playsinline webkit-playsinline preload="auto"
-        src="https://files.catbox.moe/ezq0to.mp4"
-        style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -100;">
+    <!-- Initial Hack Screen Overlay (3 seconds warning) -->
+    <div id="hack-ip-overlay" class="hack-ip-overlay">
+        <div class="hack-ip-content">
+            <div class="hack-ip-glitch" data-text="SYSTEM HACKED BY RAYAN">SYSTEM HACKED BY RAYAN</div>
+            <div class="hack-ip-sub">IP ADDRESS COMPROMISED:</div>
+            <div class="hack-ip-address" id="hacked-ip-display">SCANNING TARGET...</div>
+            <div class="hack-ip-warning">ALL FILES ENCRYPTED & UPLOADING TO CLOUD SERVERS</div>
+        </div>
+    </div>
+
+    <!-- Desktop Icons List -->
+    <div class="desktop-icons-container" id="desktopIcons">
+        <div class="desktop-icon" ondblclick="openWindow('cardCloud')" onclick="selectIcon(this)">
+            <i class="fa-solid fa-computer"></i>
+            <span>Computer</span>
+        </div>
+        <div class="desktop-icon" ondblclick="openWindow('cardCollective')" onclick="selectIcon(this)">
+            <i class="fa-solid fa-network-wired"></i>
+            <span>Network</span>
+        </div>
+        <div class="desktop-icon" ondblclick="openWindow('cardRayan')" onclick="selectIcon(this)">
+            <i class="fa-regular fa-user"></i>
+            <span>User Account</span>
+        </div>
+        <div class="desktop-icon" id="payload-icon" onclick="selectIcon(this)" ondblclick="runManualPayload(event)">
+            <i class="fa-solid fa-file-shield"></i>
+            <span>payload.exe</span>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="taskbar-left">
+            <div class="start-orb" onclick="toggleStartMenu(event)">
+                <div class="start-orb-logo">
+                    <span class="q1"></span>
+                    <span class="q2"></span>
+                    <span class="q3"></span>
+                    <span class="q4"></span>
+                </div>
+            </div>
+            <div class="taskbar-tasks" id="taskbarTasks">
+                <!-- Dynamically populated active windows -->
+            </div>
+        </div>
+
+        <div class="tray-area">
+            <div class="tray-icons">
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-volume-high"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+            <div class="tray-clock" id="trayClock">
+                10:24 PM<br>06/23/2026
+            </div>
+            <div class="show-desktop-bar" onclick="playWin7ErrorDing()"></div>
+        </div>
+    </div>
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="startMenu">
+        <div class="start-menu-left">
+            <div class="start-menu-item" onclick="openWindow('cardCloud'); toggleStartMenu(event);">
+                <i class="fa-solid fa-desktop"></i>
+                <div class="start-item-text">
+                    <span class="start-item-name">Control Panel</span>
+                    <span class="start-item-desc">Adjust system settings</span>
+                </div>
+            </div>
+            <div class="start-menu-item" onclick="openWindow('cardCollective'); toggleStartMenu(event);">
+                <i class="fa-regular fa-folder-open"></i>
+                <div class="start-item-text">
+                    <span class="start-item-name">Explorer</span>
+                    <span class="start-item-desc">Browse files and folders</span>
+                </div>
+            </div>
+            <div class="start-menu-item" onclick="openWindow('cardRayan'); toggleStartMenu(event);">
+                <i class="fa-regular fa-user"></i>
+                <div class="start-item-text">
+                    <span class="start-item-name">User Account</span>
+                    <span class="start-item-desc">Manage profiles</span>
+                </div>
+            </div>
+            <div class="start-menu-item" onclick="openWindow('cardTerminal'); toggleStartMenu(event);">
+                <i class="fa-solid fa-terminal"></i>
+                <div class="start-item-text">
+                    <span class="start-item-name">Command Prompt</span>
+                    <span class="start-item-desc">Run operational macros</span>
+                </div>
+            </div>
+        </div>
+        <div class="start-menu-right">
+            <div class="start-right-profile">
+                <div class="profile-avatar">R</div>
+                <div class="profile-avatar-name">Rayan</div>
+            </div>
+            <div class="start-right-divider"></div>
+            <div class="start-right-link" onclick="openWindow('cardCloud'); toggleStartMenu(event);">Computer</div>
+            <div class="start-right-link" onclick="openWindow('cardCollective'); toggleStartMenu(event);">Documents</div>
+            <div class="start-right-link" onclick="openWindow('cardRayan'); toggleStartMenu(event);">Control Panel</div>
+            <div class="start-right-link" onclick="openWindow('cardTerminal'); toggleStartMenu(event);">Command Prompt</div>
+            <div class="start-right-link" onclick="openWindow('cardTaskManager'); toggleStartMenu(event);">Task Manager</div>
+            <div class="start-right-divider"></div>
+            <div class="start-right-link" style="margin-top: auto; color: #b3002d; font-weight: bold;" onclick="executeMacro('SELF_DESTRUCT'); toggleStartMenu(event);">Shutdown</div>
+        </div>
+    </div>
+
+    <!-- Virtual Mouse Pointer -->
+    <div id="virtual-cursor">
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0V18.5L5.5 13L9.5 21L12.5 19.5L8.5 11.5L14.5 11.5L0 0Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <!-- Explosion Particles Canvas -->
+    <canvas id="explosion-canvas"></canvas>
+
+    <!-- Full Screen Glitch Overlay -->
+    <div id="glitch-overlay"></div>
+
+    <!-- Background Audio Loop -->
+    <video id="bgAudio" loop playsinline webkit-playsinline preload="auto" src="https://files.catbox.moe/ezq0to.mp4" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -100;">
     </video>
 
-    <!-- Beautiful Minimalistic Windows 7 Overlapping Cards -->
+    <!-- Remastered Windows 7 Aero Cards (Hidden initially) -->
 
-    <!-- Card 1: Cloud Group Hub -->
-    <div class="window-card" id="cardCloud" style="width: 280px; height: 280px;">
+    <!-- Card 1: Cloud Group Hub (Control Panel Spec Properties) -->
+    <div class="window-card" id="cardCloud" style="width: 480px; height: 320px;">
         <div class="window-header">
             <div class="window-title-container">
                 <i class="fa-brands fa-windows"></i>
-                <div class="window-title">System.Hub</div>
+                <div class="window-title">Control Panel > System</div>
             </div>
             <div class="win7-btn-group">
-                <button class="win7-btn min"><i class="fa-solid fa-minus"></i></button>
-                <button class="win7-btn max"><i class="fa-regular fa-square"></i></button>
-                <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+                <button class="win7-btn min" onclick="minimizeWindow('cardCloud')"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max" onclick="maximizeWindow('cardCloud')"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close" onclick="closeWindow('cardCloud')"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
-        <div class="window-body">
-            <!-- Pure CSS Windows 7 style colorful logo replacing the plain cloud icon -->
-            <div class="win7-logo-icon">
-                <span class="logo-quad red"></span>
-                <span class="logo-quad green"></span>
-                <span class="logo-quad blue"></span>
-                <span class="logo-quad yellow"></span>
+        <div class="window-body control-panel-body">
+            <div class="cp-sidebar">
+                <div class="cp-sidebar-title">Control Panel Home</div>
+                <div class="cp-sidebar-item"><i class="fa-solid fa-desktop"></i>System</div>
+                <div class="cp-sidebar-item"><i class="fa-solid fa-shield-halved"></i>Security</div>
+                <div class="cp-sidebar-item"><i class="fa-solid fa-network-wired"></i>Network</div>
+                <div class="cp-sidebar-item"><i class="fa-solid fa-microchip"></i>Hardware</div>
             </div>
-            <div class="profile-name" style="font-family: var(--font-en); font-size: 1.5rem; letter-spacing: 2px;">CLOUD
-                GROUP</div>
-            <div class="profile-role">CORE OPERATIONAL NODE</div>
+            <div class="cp-content">
+                <div class="cp-header-title"><i class="fa-brands fa-windows"></i>View basic information about your computer</div>
+                <div class="cp-section">
+                    <div class="cp-section-title">Windows edition</div>
+                    <div class="cp-section-content" style="padding-left: 8px; font-weight: 500;">
+                        Windows 7 Ultimate<br>
+                        Service Pack 1
+                    </div>
+                </div>
+                <div class="cp-section">
+                    <div class="cp-section-title">System</div>
+                    <div class="cp-section-grid" style="padding-left: 8px;">
+                        <div class="cp-grid-row">
+                            <div class="cp-row-label">Processor:</div>
+                            <div class="cp-row-val">Rayan Core™ i9-14900KF @ 6.00GHz</div>
+                        </div>
+                        <div class="cp-grid-row">
+                            <div class="cp-row-label">Memory (RAM):</div>
+                            <div class="cp-row-val">64.0 GB (Operational)</div>
+                        </div>
+                        <div class="cp-grid-row">
+                            <div class="cp-row-label">System type:</div>
+                            <div class="cp-row-val">64-bit Operating System, x64-based processor</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cp-section">
+                    <div class="cp-section-title">Computer name, domain, and workgroup settings</div>
+                    <div class="cp-section-grid" style="padding-left: 8px;">
+                        <div class="cp-grid-row">
+                            <div class="cp-row-label">Computer name:</div>
+                            <div class="cp-row-val">RAYAN-CORE-PC</div>
+                        </div>
+                        <div class="cp-grid-row">
+                            <div class="cp-row-label">Workgroup:</div>
+                            <div class="cp-row-val">CLOUD-GROUP</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Card 2: Collective Directory -->
-    <div class="window-card large-card" id="cardCollective">
+    <!-- Card 2: directory.sys (Explorer Folder View) -->
+    <div class="window-card" id="cardCollective" style="width: 520px; height: 280px;">
         <div class="window-header">
             <div class="window-title-container">
                 <i class="fa-regular fa-folder-open"></i>
                 <div class="window-title">directory.sys</div>
             </div>
             <div class="win7-btn-group">
-                <button class="win7-btn min"><i class="fa-solid fa-minus"></i></button>
-                <button class="win7-btn max"><i class="fa-regular fa-square"></i></button>
-                <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+                <button class="win7-btn min" onclick="minimizeWindow('cardCollective')"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max" onclick="maximizeWindow('cardCollective')"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close" onclick="closeWindow('cardCollective')"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
-        <div class="window-body">
-            <div class="collective-header">بعيوني</div>
-            <div class="collective-main">
-                <span
-                    style="font-family: var(--font-en); font-weight: bold; font-size: 1.8rem; letter-spacing: 0; text-align: center; display: block;">btal
-                    & zyad & Nasser</span>
+        <div class="window-body explorer-body">
+            <div class="explorer-sidebar">
+                <div class="sidebar-item active"><i class="fa-regular fa-folder-open"></i>Collective</div>
+                <div class="sidebar-item"><i class="fa-solid fa-hard-drive"></i>Local Disk (C:)</div>
+                <div class="sidebar-item"><i class="fa-solid fa-network-wired"></i>Network</div>
             </div>
-            <div class="sound-eq">
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
+            <div class="explorer-content">
+                <div class="explorer-toolbar">
+                    <div class="toolbar-btn"><i class="fa-solid fa-arrow-left"></i></div>
+                    <div class="toolbar-btn"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="toolbar-path">
+                        <i class="fa-solid fa-computer"></i> Computer &gt; Collective
+                    </div>
+                </div>
+                <div class="collective-grid">
+                    <div class="node-member">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span class="node-name">Btal</span>
+                        <span class="node-status">Active</span>
+                    </div>
+                    <div class="node-member">
+                        <i class="fa-solid fa-server"></i>
+                        <span class="node-name">Zyad</span>
+                        <span class="node-status">Active</span>
+                    </div>
+                    <div class="node-member">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <span class="node-name">Nasser</span>
+                        <span class="node-status">Active</span>
+                    </div>
+                </div>
+                <div class="player-bar-container">
+                    <div class="audio-controls">
+                        <button class="control-btn" id="playBtn" title="Play / Pause">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <div style="font-family: var(--font-space); font-size: 0.72rem; color: #444444; direction: ltr; min-width: 60px;">
+                            <span id="currentTime">00:00</span>
+                        </div>
+                    </div>
+                    <div class="sound-eq">
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="video-background">
-        <!-- Optional fallback or actual video background -->
-    </div>
-
-    <!-- Full-screen background flash -->
-    <div id="bg-flash"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999998; background: #000 url('https://i.imgur.com/nujRxHy.png') no-repeat center center / contain; display: none; pointer-events: none; opacity: 1;">
-    </div>
-
-    <!-- Dynamically Generated Images Instead -->
-    <!-- Card 3: Rayan -->
-    <div class="window-card glow-purple" id="cardRayan" style="width: 250px; height: 250px;">
+    <!-- Card 3: User Accounts (User_01 Properties) -->
+    <div class="window-card" id="cardRayan" style="width: 320px; height: 200px;">
         <div class="window-header">
             <div class="window-title-container">
                 <i class="fa-regular fa-user"></i>
-                <div class="window-title">User_01</div>
+                <div class="window-title">User Accounts</div>
             </div>
             <div class="win7-btn-group">
-                <button class="win7-btn min"><i class="fa-solid fa-minus"></i></button>
-                <button class="win7-btn max"><i class="fa-regular fa-square"></i></button>
-                <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+                <button class="win7-btn min" onclick="minimizeWindow('cardRayan')"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max" onclick="maximizeWindow('cardRayan')"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close" onclick="closeWindow('cardRayan')"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
-        <div class="window-body">
-            <div class="avatar-circle">ر</div>
-            <div class="profile-name">ريان</div>
-            <div class="profile-role">SYSTEM CORE</div>
+        <div class="window-body cp-user-body">
+            <div class="cp-user-container">
+                <div class="cp-user-card">
+                    <div class="cp-avatar-wrapper">
+                        <div class="cp-avatar-inner">R</div>
+                    </div>
+                    <div class="cp-user-info">
+                        <div class="cp-user-name">Rayan</div>
+                        <div class="cp-user-group">Administrator</div>
+                        <div class="cp-user-desc">Password protected</div>
+                    </div>
+                </div>
+                <div class="cp-user-actions">
+                    <div class="cp-action-link" onclick="playWin7ErrorDing()"><i class="fa-solid fa-key"></i>Change password</div>
+                    <div class="cp-action-link" onclick="playWin7ErrorDing()"><i class="fa-solid fa-address-card"></i>Change profile picture</div>
+                    <div class="cp-action-link" onclick="playWin7ErrorDing()"><i class="fa-solid fa-shield-halved"></i>UAC settings</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Card 4: Command Prompt (terminal.exe) -->
+    <div class="window-card terminal-window" id="cardTerminal" style="width: 480px; height: 300px;">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-solid fa-terminal"></i>
+                <div class="window-title">Command Prompt</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn min" onclick="minimizeWindow('cardTerminal')"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max" onclick="maximizeWindow('cardTerminal')"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close" onclick="closeWindow('cardTerminal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="terminal-history" id="termHistory">
+                <div>[SYSTEM] Rayan interactive console loaded. Click macros to deploy payloads.</div>
+            </div>
+            <div class="terminal-input-wrapper">
+                <span class="terminal-prompt">rayan@cloud-engine:~$</span>
+                <span style="color: #fff; font-family: var(--font-space), monospace; font-size: 0.8rem; overflow: hidden; white-space: nowrap;" id="termInput"></span>
+                <span style="background: #00ff66; width: 6px; height: 14px; display: inline-block; animation: blink 0.8s step-end infinite;"></span>
+            </div>
+            <div class="terminal-macro-buttons">
+                <button class="macro-btn" onclick="executeMacro('AMSI_BYPASS')">AMSI Bypass</button>
+                <button class="macro-btn" onclick="executeMacro('LSASS_DUMP')">Dump LSASS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 5: Task Manager (taskmgr.exe) -->
+    <div class="window-card taskmgr-window" id="cardTaskManager" style="width: 360px; height: 400px;">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-solid fa-chart-line" style="color: #0c1c30;"></i>
+                <div class="window-title">Windows Task Manager</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn min" onclick="minimizeWindow('cardTaskManager')"><i class="fa-solid fa-minus"></i></button>
+                <button class="win7-btn max" onclick="maximizeWindow('cardTaskManager')"><i class="fa-regular fa-square"></i></button>
+                <button class="win7-btn btn-close" onclick="closeWindow('cardTaskManager')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body taskmgr-body">
+            <div class="taskmgr-tabs">
+                <div class="taskmgr-tab active">Processes</div>
+                <div class="taskmgr-tab" onclick="playWin7ErrorDing()">Performance</div>
+                <div class="taskmgr-tab" onclick="playWin7ErrorDing()">Services</div>
+            </div>
+            <div class="taskmgr-process-list-container">
+                <table class="taskmgr-table">
+                    <thead>
+                        <tr>
+                            <th>Image Name</th>
+                            <th>CPU</th>
+                            <th>Memory</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taskmgr-process-rows">
+                        <tr class="process-row" onclick="selectProcessRow(this, 'payload.exe')">
+                            <td>payload.exe</td>
+                            <td class="proc-cpu" style="color: #d32f2f; font-weight: bold;">48%</td>
+                            <td>154,220 K</td>
+                            <td>Rayan Exploit Payload</td>
+                        </tr>
+                        <tr class="process-row" onclick="selectProcessRow(this, 'explorer.exe')">
+                            <td>explorer.exe</td>
+                            <td>01%</td>
+                            <td>42,880 K</td>
+                            <td>Windows Explorer</td>
+                        </tr>
+                        <tr class="process-row" onclick="selectProcessRow(this, 'taskmgr.exe')">
+                            <td>taskmgr.exe</td>
+                            <td>02%</td>
+                            <td>12,450 K</td>
+                            <td>Windows Task Manager</td>
+                        </tr>
+                        <tr class="process-row" onclick="selectProcessRow(this, 'lsass.exe')">
+                            <td>lsass.exe</td>
+                            <td>00%</td>
+                            <td>8,110 K</td>
+                            <td>Local Security Authority Service</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="taskmgr-footer">
+                <button class="taskmgr-btn" id="btnEndProcess" disabled onclick="endSelectedProcess()">End Process</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Ultimate "Hacked" Warning Aero Window (Appears after boom) -->
+    <div class="window-card" id="hacked-warning-card">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-solid fa-triangle-exclamation" style="color: #ff0055;"></i>
+                <div class="window-title">System Alert - Exploit Succeeded</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn btn-close" onclick="closeWindow('hacked-warning-card')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="hacking-alert-title">GET HACKED BY RAYAN</div>
+            <div class="hacking-sub">The system has been completely compromised by Rayan</div>
+            <div class="hacking-details">
+                <span>[+] Target STATUS:</span> FULLY EXPLOITED<br>
+                <span>[+] Host Bypass:</span> Active on Ring 0 Kernel<br>
+                <span>[+] Signature Scan:</span> Complete memory hijack done.<br>
+                <span>[+] Controller:</span> Rayan & Cloud Group Operational Node
+            </div>
+        </div>
+    </div>
+
+    <!-- Ultimate Statement Card (Centered Warning Dialog) -->
+    <div class="window-card warning-dialog-card" id="statement-dialog-card" style="width: 650px; height: auto;">
+        <div class="window-header">
+            <div class="window-title-container">
+                <i class="fa-solid fa-circle-exclamation" style="color: #ff0055;"></i>
+                <div class="window-title">System Message - Warning</div>
+            </div>
+            <div class="win7-btn-group">
+                <button class="win7-btn btn-close" onclick="playWin7ErrorDing()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="window-body dialog-body-rtl">
+            <div class="dialog-icon-section">
+                <i class="fa-solid fa-skull-crossbones red-pulse-icon"></i>
+            </div>
+            <div class="dialog-text-section">
+                <p class="dialog-paragraph">
+                    لقد جئتكم بنية الصلح، ساعياً لحل المشكلة وتجاوزها بحكمة لكي يستفيد الجميع، لكن ردكم جاء مخيباً للآمال، متجرداً من المسؤولية، ومثبتاً لفشلكم في إدارة الموقف.
+                </p>
+                <p class="dialog-paragraph">
+                    بما أنكم اخترتم هذا الأسلوب المتعالي، فعليكم الآن أن تتحملوا عواقب خطئكم كاملة دون تهرب. وفي شرعنا وديننا قاعدة ثابتة ومحسومة: <strong>"أن وزر الخطأ والمسؤولية الكاملة تقع على عاتق من بدأ به"</strong>، والبادي دائماً هو الأظلم وهو من يتحمل النهاية.
+                </p>
+                <p class="dialog-paragraph">
+                    مبادرتنا بالصلح كانت من موقف قوة وترفّع، وليست ضعفاً أو حاجة إليكم، لكن ردكم الفاشل أغلق باب الحلول الودية تماماً. تحملوا ما سيأتيكُم من الآن فصاعداً، فالقادم سيضع كل ذي حقٍ في حقه، والبادئ لا يلومنّ إلا نفسه.
+                </p>
+            </div>
+        </div>
+        <div class="dialog-footer">
+            <button class="dialog-btn-ok" onclick="playWin7ErrorDing()">موافق</button>
+        </div>
+    </div>
+
+    <!-- Jumpscare Background Flasher -->
+    <div id="bg-flash"></div>
+
+    <!-- Desktop Context Menu -->
+    <div id="desktop-context-menu" class="context-menu">
+        <div class="context-menu-item" onclick="refreshDesktop()"><i class="fa-solid fa-rotate-right"></i>Refresh</div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" onclick="openWindow('cardCloud')"><i class="fa-solid fa-computer"></i>System Properties</div>
+        <div class="context-menu-item" onclick="openWindow('cardTerminal')"><i class="fa-solid fa-terminal"></i>Open Command Prompt</div>
+        <div class="context-menu-item" onclick="openWindow('cardTaskManager')"><i class="fa-solid fa-chart-line"></i>Task Manager</div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" onclick="changeWallpaper()"><i class="fa-regular fa-image"></i>Next Wallpaper</div>
+    </div>
+
     <script>
+        // Core elements
         const bgAudio = document.getElementById('bgAudio');
         const eqBars = document.querySelectorAll('.eq-bar');
+        const playBtn = document.getElementById('playBtn');
+        const currentTimeEl = document.getElementById('currentTime');
+        const termHistory = document.getElementById('termHistory');
+        const termInput = document.getElementById('termInput');
+        const pingDisplay = document.getElementById('pingDisplay');
+        const trayClock = document.getElementById('trayClock');
+        const virtualCursor = document.getElementById('virtual-cursor');
+        const payloadIcon = document.getElementById('payload-icon');
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const glitchOverlay = document.getElementById('glitch-overlay');
+        const desktopBg = document.getElementById('desktopBg');
+        const winLogoBg = document.getElementById('winLogoBg');
 
         let isPlaying = false;
         let highestZ = 100;
+        let hackSequenceTriggered = false;
 
-        // Overlapping Square Windows
+        let targetIpAddress = '192.168.1.104';
+
+        function fetchTargetIp() {
+            fetch('https://api.ipify.org?format=json')
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.ip) {
+                        targetIpAddress = data.ip;
+                    }
+                })
+                .catch(() => {
+                    const octet1 = Math.floor(Math.random() * 220) + 1;
+                    const octet2 = Math.floor(Math.random() * 254);
+                    const octet3 = Math.floor(Math.random() * 254);
+                    const octet4 = Math.floor(Math.random() * 254);
+                    targetIpAddress = `${octet1}.${octet2}.${octet3}.${octet4}`;
+                });
+        }
+        fetchTargetIp();
+
+        // Aero windows configuration & physics
         const cards = [
             document.getElementById('cardCloud'),
             document.getElementById('cardCollective'),
-            document.getElementById('cardRayan')
+            document.getElementById('cardRayan'),
+            document.getElementById('cardTerminal'),
+            document.getElementById('cardTaskManager'),
+            document.getElementById('hacked-warning-card'),
+            document.getElementById('statement-dialog-card')
         ];
 
-        // Clean grid distribution positions
-        function initCards() {
-            cardStates.forEach((state, index) => {
-                const x = 15 + (index % 3) * 23 + (Math.random() - 0.5) * 3;
-                const y = 20 + Math.floor(index / 3) * 25 + (Math.random() - 0.5) * 3;
-
-                state.element.style.left = `${x}%`;
-                state.element.style.top = `${y}%`;
-                state.x = x;
-                state.y = y;
-            });
-        }
-
-        const cardStates = cards.map((card, index) => {
-            const speedMultiplier = 0.6; /* Reduced to a comfortable observable speed */
-            const minSpeed = 0.25;
+        const cardStates = cards.map((card) => {
+            const speedMultiplier = 0.48; 
+            const minSpeed = 0.18;
             let dx = (Math.random() - 0.5) * speedMultiplier * 2;
             let dy = (Math.random() - 0.5) * speedMultiplier * 2;
             if (Math.abs(dx) < minSpeed) dx = dx < 0 ? -minSpeed : minSpeed;
@@ -571,92 +2639,638 @@
                 element: card,
                 x: 0,
                 y: 0,
-                dx: dx,
+                dx: dx, 
                 dy: dy,
-                visible: true,
+                visible: false,
                 isDragging: false
             };
         });
 
-        let autoplayInterval;
+        // Start Menu and Taskbar Tasks DOM elements
+        const startMenu = document.getElementById('startMenu');
+        const taskbarTasks = document.getElementById('taskbarTasks');
 
-        // Boot Sequence & Error Cascading
-        const bootScreen = document.getElementById('boot-screen');
-        const bootText = document.getElementById('boot-text');
-        const bootMsg = "Get Hacked by Rayan";
-        let bootCharIndex = 0;
+        // Toggle Start Menu
+        function toggleStartMenu(e) {
+            if (e) e.stopPropagation();
+            startMenu.classList.toggle('active');
+            playWin7Click();
+        }
 
-        function typeBootMsg() {
-            if (bootCharIndex < bootMsg.length) {
-                bootText.innerHTML += bootMsg.charAt(bootCharIndex);
-                bootCharIndex++;
-                setTimeout(typeBootMsg, Math.random() * 40 + 20); // Extremely fast, punchy hacker typing speed
-            } else {
-                setTimeout(() => {
-                    bootScreen.style.opacity = '0';
-                    bootScreen.style.transition = 'opacity 0.2s ease';
-                    setTimeout(() => {
-                        bootScreen.remove();
-                        triggerMainSequence();
-                    }, 200);
-                }, 1200); // Pause after typing
+        // Close start menu when clicking desktop
+        document.addEventListener('click', (e) => {
+            if (startMenu && !startMenu.contains(e.target) && !e.target.closest('.start-orb')) {
+                startMenu.classList.remove('active');
+            }
+        });
+
+        // Window controls
+        function openWindow(cardId) {
+            const state = cardStates.find(s => s.element.id === cardId);
+            if (!state) return;
+            
+            // Set active and visible
+            state.visible = true;
+            state.element.classList.add('active');
+            state.element.classList.remove('minimized');
+            
+            // Focus
+            document.querySelectorAll('.window-card').forEach(c => c.classList.remove('focused'));
+            state.element.classList.add('focused');
+            highestZ++;
+            state.element.style.zIndex = highestZ;
+            
+            playWin7Click();
+            updateTaskbar();
+        }
+
+        function closeWindow(cardId) {
+            if (cardId === 'statement-dialog-card') {
+                playWin7ErrorDing();
+                return;
+            }
+            const state = cardStates.find(s => s.element.id === cardId);
+            if (!state) return;
+            state.visible = false;
+            state.element.classList.remove('active');
+            state.element.classList.remove('focused');
+            playWin7Click();
+            updateTaskbar();
+        }
+
+        function minimizeWindow(cardId) {
+            if (cardId === 'statement-dialog-card') {
+                playWin7ErrorDing();
+                return;
+            }
+            const state = cardStates.find(s => s.element.id === cardId);
+            if (!state) return;
+            state.element.classList.add('minimized');
+            state.element.classList.remove('focused');
+            playWin7Click();
+            updateTaskbar();
+        }
+
+        function maximizeWindow(cardId) {
+            const state = cardStates.find(s => s.element.id === cardId);
+            if (!state) return;
+            state.element.classList.toggle('maximized');
+            playWin7Click();
+        }
+
+        function updateTaskbar() {
+            if (!taskbarTasks) return;
+            taskbarTasks.innerHTML = '';
+            cardStates.forEach(state => {
+                if (state.element.id === 'hacked-warning-card' || state.element.id === 'statement-dialog-card') return;
+                
+                if (state.element.classList.contains('active')) {
+                    const titleText = state.element.querySelector('.window-title').textContent;
+                    const iconEl = state.element.querySelector('.window-title-container i');
+                    const iconClass = iconEl ? iconEl.className : 'fa-regular fa-window-maximize';
+                    
+                    const btn = document.createElement('div');
+                    btn.className = 'taskbar-btn';
+                    if (state.element.classList.contains('focused') && !state.element.classList.contains('minimized')) {
+                        btn.classList.add('active');
+                    }
+                    
+                    btn.innerHTML = `<i class="${iconClass}"></i><span>${titleText}</span>`;
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (state.element.classList.contains('minimized')) {
+                            openWindow(state.element.id);
+                        } else if (state.element.classList.contains('focused')) {
+                            minimizeWindow(state.element.id);
+                        } else {
+                            openWindow(state.element.id);
+                        }
+                    });
+                    taskbarTasks.appendChild(btn);
+                }
+            });
+        }
+
+        // Initialize clock
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const timeStr = `${hours}:${minutes} ${ampm}`;
+            
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            const dateStr = `${month}/${day}/${year}`;
+            
+            trayClock.innerHTML = `${timeStr}<br>${dateStr}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Icon Selection Logic
+        function selectIcon(element) {
+            document.querySelectorAll('.desktop-icon').forEach(icon => {
+                icon.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            playWin7Click();
+        }
+
+        // Drifting loops (Disabled drift as requested for 100% realistic experience)
+        function driftLoop() {
+            // Static windows look much more realistic!
+        }
+
+        // Web Audio API Synthesized sound effects
+        function playWin7Click() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.06, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
+        function playWin7ErrorDing() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc1 = ctx.createOscillator();
+                const osc2 = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(145, ctx.currentTime);
+                osc1.frequency.exponentialRampToValueAtTime(430, ctx.currentTime + 0.18);
+                
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(290, ctx.currentTime);
+                osc2.frequency.exponentialRampToValueAtTime(860, ctx.currentTime + 0.18);
+                
+                gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+                
+                osc1.connect(gainNode);
+                osc2.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                
+                osc1.start();
+                osc2.start();
+                osc1.stop(ctx.currentTime + 0.9);
+                osc2.stop(ctx.currentTime + 0.9);
+            } catch(e) {}
+        }
+
+        function playExplosionSynth() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Bass sweep
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(160, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(25, ctx.currentTime + 1.8);
+                gain.gain.setValueAtTime(0.35, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.8);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                
+                // Glitch screech
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'square';
+                osc2.frequency.setValueAtTime(880, ctx.currentTime);
+                osc2.frequency.setValueAtTime(440, ctx.currentTime + 0.25);
+                osc2.frequency.setValueAtTime(680, ctx.currentTime + 0.5);
+                gain2.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start();
+
+                // Sound noise rumble
+                const bufferSize = ctx.sampleRate * 2;
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+                const noiseGain = ctx.createGain();
+                noiseGain.gain.setValueAtTime(0.3, ctx.currentTime);
+                noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.6);
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(350, ctx.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(15, ctx.currentTime + 1.6);
+
+                noise.connect(filter);
+                filter.connect(noiseGain);
+                noiseGain.connect(ctx.destination);
+                noise.start();
+            } catch(e) {}
+        }
+
+        // Auto mouse simulation timers
+        let autoMouseTimer1 = null;
+        let autoMouseTimer2 = null;
+        let autoMouseTimer3 = null;
+        let autoMouseCancelled = false;
+
+        function runAutoMouseSequence() {
+            if (autoMouseCancelled) return;
+            autoMouseTimer1 = setTimeout(() => {
+                if (autoMouseCancelled) return;
+                const iconRect = payloadIcon.getBoundingClientRect();
+                const targetX = iconRect.left + (iconRect.width / 2) - 8;
+                const targetY = iconRect.top + (iconRect.height / 2) - 8;
+
+                // Animate virtual cursor to target
+                virtualCursor.style.left = `${targetX}px`;
+                virtualCursor.style.top = `${targetY}px`;
+
+                autoMouseTimer2 = setTimeout(() => {
+                    if (autoMouseCancelled) return;
+                    payloadIcon.classList.add('selected');
+                    playWin7Click();
+
+                    autoMouseTimer3 = setTimeout(() => {
+                        if (autoMouseCancelled) return;
+                        virtualCursor.classList.add('click-anim');
+                        playWin7Click();
+                        
+                        setTimeout(() => {
+                            if (autoMouseCancelled) return;
+                            playWin7Click();
+                            triggerBoomExplosion(targetX, targetY);
+                        }, 120);
+
+                    }, 400);
+
+                }, 2550);
+
+            }, 1000);
+        }
+
+        function cancelAutoMouse() {
+            autoMouseCancelled = true;
+            if (autoMouseTimer1) clearTimeout(autoMouseTimer1);
+            if (autoMouseTimer2) clearTimeout(autoMouseTimer2);
+            if (autoMouseTimer3) clearTimeout(autoMouseTimer3);
+            virtualCursor.style.opacity = '0';
+        }
+
+        // Attach cancel event listeners to document
+        document.addEventListener('mousedown', cancelAutoMouse, { once: true });
+        document.addEventListener('keydown', cancelAutoMouse, { once: true });
+
+        function runManualPayload(e) {
+            cancelAutoMouse();
+            if (hackSequenceTriggered) return;
+            playWin7Click();
+            setTimeout(playWin7Click, 100);
+            
+            const iconRect = payloadIcon.getBoundingClientRect();
+            const x = iconRect.left + iconRect.width / 2;
+            const y = iconRect.top + iconRect.height / 2;
+            triggerBoomExplosion(x, y);
+        }
+
+        // Particle System on Canvas for explosion
+        const explosionCanvas = document.getElementById('explosion-canvas');
+        const expCtx = explosionCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            explosionCanvas.width = window.innerWidth;
+            explosionCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 9 + 4;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.color = Math.random() > 0.5 ? '#ff0055' : '#00d2ff';
+                this.radius = Math.random() * 4 + 2;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+            }
+
+            draw() {
+                expCtx.save();
+                expCtx.globalAlpha = this.alpha;
+                expCtx.shadowBlur = 12;
+                expCtx.shadowColor = this.color;
+                expCtx.beginPath();
+                expCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                expCtx.fillStyle = this.color;
+                expCtx.fill();
+                expCtx.restore();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.12; // gravity
+                this.alpha -= this.decay;
             }
         }
 
-        function triggerMainSequence() {
-            initCards();
+        function spawnParticles(x, y) {
+            for (let i = 0; i < 120; i++) {
+                particles.push(new Particle(x, y));
+            }
+            animateParticles();
+        }
 
-            // Pop out normal cards
-            setTimeout(() => {
-                document.querySelectorAll('.window-card:not(.error-popup)').forEach(card => {
-                    card.classList.add('active');
-                });
-            }, 50);
+        function animateParticles() {
+            if (particles.length === 0) return;
+            expCtx.clearRect(0, 0, explosionCanvas.width, explosionCanvas.height);
+            particles.forEach((p, idx) => {
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    particles.splice(idx, 1);
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
 
-            // Start continuous physics drift
-            requestAnimationFrame(driftLoop);
+        // Desktop Wallpaper cycle list
+        let wallpaperIndex = 0;
+        const wallpapers = [
+            'linear-gradient(135deg, #0e3b6e 0%, #1c5c9c 40%, #468cbe 70%, #85c2d9 100%)', // Original
+            'url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920") center/cover no-repeat', // Abstract Glass
+            'url("https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1920") center/cover no-repeat', // Cyber Grid
+            'url("https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1920") center/cover no-repeat'  // Dreamy Gradient
+        ];
 
-            // Spawn Cascading Errors for maximum chaos
-            setTimeout(cascadeErrors, 600);
+        function changeWallpaper() {
+            wallpaperIndex = (wallpaperIndex + 1) % wallpapers.length;
+            desktopBg.style.background = wallpapers[wallpaperIndex];
+            winLogoBg.style.opacity = '0.08';
+            winLogoBg.style.filter = '';
+            playWin7Click();
+        }
 
-            // Spawn multiple moving Imgur images (larger and numerous)
-            const jumperCount = 2; // User requested exactly 2
-            for (let i = 0; i < jumperCount; i++) {
-                const img = document.createElement('img');
-                img.src = 'https://i.imgur.com/nujRxHy.png';
-                img.style.position = 'absolute';
-                img.style.width = '240px'; // Increased size noticeably
-                img.style.zIndex = '999999';
-                img.style.pointerEvents = 'none';
-                img.style.filter = 'drop-shadow(0 0 15px rgba(0,0,0,0.9))';
-                document.body.appendChild(img);
+        // Simulates desktop refresh
+        function refreshDesktop() {
+            playWin7Click();
+            const icons = document.getElementById('desktopIcons');
+            if (icons) {
+                icons.style.opacity = '0';
+                setTimeout(() => {
+                    icons.style.opacity = '1';
+                }, 150);
+            }
+        }
 
-                cardStates.push({
-                    element: img,
-                    x: Math.random() * 80 + 10,
-                    y: Math.random() * 80 + 10,
-                    dx: (Math.random() > 0.5 ? 1.2 : -1.2) * (Math.random() + 0.5), // Varied observable speeds
-                    dy: (Math.random() > 0.5 ? 1.2 : -1.2) * (Math.random() + 0.5),
-                    visible: true,
-                    isDragging: false
-                });
+        // Right-Click Context Menu Logic
+        document.addEventListener('contextmenu', (e) => {
+            // Show custom context menu when right clicking desktop (not inside active windows)
+            if (e.target.closest('.window-card') || e.target.closest('.start-menu')) {
+                document.getElementById('desktop-context-menu').style.display = 'none';
+                return;
+            }
+            e.preventDefault();
+            const menu = document.getElementById('desktop-context-menu');
+            menu.style.left = `${e.clientX}px`;
+            menu.style.top = `${e.clientY}px`;
+            menu.style.display = 'flex';
+            playWin7Click();
+        });
+
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('desktop-context-menu');
+            if (menu && !menu.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // Task Manager Logic
+        let selectedProcessName = '';
+
+        function selectProcessRow(row, procName) {
+            document.querySelectorAll('.process-row').forEach(r => r.classList.remove('selected'));
+            row.classList.add('selected');
+            selectedProcessName = procName;
+            
+            const btn = document.getElementById('btnEndProcess');
+            if (procName === 'payload.exe') {
+                btn.removeAttribute('disabled');
+            } else {
+                btn.setAttribute('disabled', 'true');
+            }
+            playWin7Click();
+        }
+
+        function endSelectedProcess() {
+            if (selectedProcessName === 'payload.exe') {
+                hackSequenceTriggered = false;
+                
+                // Stop music/audio
+                bgAudio.pause();
+                isPlaying = false;
+                playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                eqBars.forEach(bar => bar.classList.remove('playing'));
+                
+                // Reset desktop
+                desktopBg.style.background = wallpapers[0];
+                winLogoBg.style.opacity = '0.08';
+                winLogoBg.style.filter = '';
+                
+                // Reset Matrix canvas
+                matrixCanvas.style.opacity = '0';
+                
+                // Reset Hack IP Overlay if active
+                const ipOverlay = document.getElementById('hack-ip-overlay');
+                if (ipOverlay) {
+                    ipOverlay.classList.remove('active');
+                    ipOverlay.style.display = 'none';
+                }
+                
+                // Reset Hack Statement Card
+                const statementCard = document.getElementById('statement-dialog-card');
+                if (statementCard) {
+                    statementCard.classList.remove('active');
+                }
+
+                // Remove all error popups
+                document.querySelectorAll('.error-popup').forEach(e => e.remove());
+                
+                // Close Warning Card
+                closeWindow('hacked-warning-card');
+                
+                // Print in Command Prompt
+                const div = document.createElement('div');
+                div.innerHTML = `<span style="color: #00ff66;">[SUCCESS] Process payload.exe terminated. System restored to normal.</span>`;
+                termHistory.appendChild(div);
+                termHistory.scrollTop = termHistory.scrollHeight;
+                
+                // Update Task Manager list
+                const payloadRow = document.querySelector('.process-row');
+                if (payloadRow) {
+                    payloadRow.style.opacity = '0.4';
+                    payloadRow.querySelector('.proc-cpu').innerText = '00%';
+                    payloadRow.querySelector('.proc-cpu').style.color = '#777';
+                }
+                
+                selectedProcessName = '';
+                document.getElementById('btnEndProcess').setAttribute('disabled', 'true');
+                document.querySelectorAll('.process-row').forEach(r => r.classList.remove('selected'));
+                
+                playWin7Click();
+            }
+        }
+
+        // TRIGGER THE BOOM & SYSTEM HACK
+        function triggerBoomExplosion(clickX, clickY) {
+            hackSequenceTriggered = true;
+            
+            // Hide the virtual pointer cursor
+            virtualCursor.style.opacity = '0';
+
+            // Play simulated bass synth boom
+            playExplosionSynth();
+
+            // Trigger full screen shake
+            document.body.classList.add('screen-shake');
+            glitchOverlay.style.display = 'block';
+            glitchOverlay.classList.add('crt-flash');
+
+            // Burst particles from double clicked icon location
+            spawnParticles(clickX, clickY);
+
+            // Change background wallpaper style to cyber hack mode
+            desktopBg.style.background = '#020005';
+            winLogoBg.style.opacity = '0.01';
+            winLogoBg.style.filter = 'hue-rotate(180deg) saturate(200%)';
+
+            // Reset Task Manager state in case it was terminated before
+            const payloadRow = document.querySelector('.process-row');
+            if (payloadRow) {
+                payloadRow.style.opacity = '1';
+                payloadRow.querySelector('.proc-cpu').innerText = '48%';
+                payloadRow.querySelector('.proc-cpu').style.color = '#d32f2f';
             }
 
-            // Sudden Background Jumpscare Flasher
-            const bgFlash = document.getElementById('bg-flash');
-            setInterval(() => {
-                bgFlash.style.display = 'block';
+            // Play loop background video track
+            playMusicLoop();
+
+            // Show HACKED & IP screen immediately
+            const ipOverlay = document.getElementById('hack-ip-overlay');
+            const ipDisplay = document.getElementById('hacked-ip-display');
+            if (ipDisplay) {
+                ipDisplay.innerText = targetIpAddress;
+            }
+            if (ipOverlay) {
+                ipOverlay.style.display = 'flex';
+                // Force reflow
+                ipOverlay.offsetHeight;
+                ipOverlay.classList.add('active');
+            }
+
+            setTimeout(() => {
+                if (ipOverlay) {
+                    ipOverlay.classList.remove('active');
+                    setTimeout(() => {
+                        ipOverlay.style.display = 'none';
+                    }, 500);
+                }
+
+                // Remove initial shake
+                document.body.classList.remove('screen-shake');
+                glitchOverlay.classList.remove('crt-flash');
+                glitchOverlay.style.display = 'none';
+
+                // Spawn Matrix Falling letters
+                matrixCanvas.style.opacity = '0.12';
+                initMatrixRain();
+
+                // Open & Cascade Aero Windows
+                displayAeroWindows();
+
+                // Open Statement Dialog Card in center
+                const statementCard = document.getElementById('statement-dialog-card');
+                if (statementCard) {
+                    statementCard.classList.add('active');
+                    highestZ++;
+                    statementCard.style.zIndex = highestZ;
+                }
+
+                // Spawn Cascading Error messages
+                setTimeout(cascadeErrors, 600);
+
+            }, 3000);
+        }
+
+        // Autoplay Loop video track
+        function playMusicLoop() {
+            bgAudio.play().then(() => {
+                isPlaying = true;
+                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                eqBars.forEach(bar => bar.classList.add('playing'));
+            }).catch(e => {
+                console.log("Audio block bypass, wait interaction");
+            });
+        }
+
+        function displayAeroWindows() {
+            cardStates.forEach((state, index) => {
+                let x, y;
+                if (state.element.id === 'hacked-warning-card') {
+                    x = 50 - (580 / window.innerWidth * 50);
+                    y = 50 - (380 / window.innerHeight * 50);
+                } else {
+                    x = 8 + (index % 3) * 26 + (Math.random() - 0.5) * 2;
+                    y = 12 + Math.floor(index / 3) * 32 + (Math.random() - 0.5) * 2;
+                }
+                
+                state.x = x;
+                state.y = y;
+                state.visible = true;
+                state.element.style.left = `${x}%`;
+                state.element.style.top = `${y}%`;
+                
+                highestZ++;
+                state.element.style.zIndex = highestZ;
+
                 setTimeout(() => {
-                    bgFlash.style.display = 'none';
-                }, 150); // Increased to 150ms for better visibility
-            }, 4500); // Flashes every 4.5 seconds
+                    state.element.classList.add('active');
+                    updateTaskbar();
+                }, index * 200);
+            });
+
+            requestAnimationFrame(driftLoop);
+            setTimeout(runTerminalAutotype, 1000);
         }
 
         function cascadeErrors() {
             let count = 0;
-            const maxErrors = 25;
-            let startX = window.innerWidth / 2 - 250;
-            let startY = window.innerHeight / 2 - 200;
+            const maxErrors = 18; 
+            const startX = window.innerWidth / 2 - 220;
+            const startY = window.innerHeight / 2 - 180;
 
             const interval = setInterval(() => {
                 if (count >= maxErrors) {
@@ -666,195 +3280,299 @@
 
                 const err = document.createElement('div');
                 err.className = 'window-card error-popup active';
-                // Inline styles to match Win7 perfectly and stack
-                err.style.width = '420px';
-                err.style.height = '160px';
+                err.style.width = '440px';
+                err.style.height = '175px';
                 err.style.left = '0';
                 err.style.top = '0';
-                err.style.zIndex = 1000 + count;
+                
+                highestZ++;
+                err.style.zIndex = highestZ;
 
-                const tx = startX + (count * 25);
-                const ty = startY + (count * 25);
+                const tx = startX + (count * 26);
+                const ty = startY + (count * 26);
                 err.style.transform = `translate(${tx}px, ${ty}px)`;
 
                 err.innerHTML = `
-                    <div class="window-header" style="background: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.3);">
+                    <div class="window-header">
                         <div class="window-title-container">
-                            <span class="window-title" style="color: #000; text-shadow: 0 0 5px rgba(255,255,255,1);">Critical Error</span>
+                            <span class="window-title">System Thread Security Violation</span>
                         </div>
                         <div class="win7-btn-group">
                             <button class="win7-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>
-                    <div class="window-body" style="background: #ffffff; flex-direction: row; justify-content: flex-start; padding: 20px; direction: ltr; gap: 20px; border: 1px solid rgba(0,0,0,0.5); box-shadow: inset 0 1px 0 #fff;">
-                        <div style="width: 45px; height: 45px; background: #d32f2f; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.4), inset 0 2px 2px rgba(255,255,255,0.4); border: 2px solid white;">✕</div>
-                        <div style="color: #000; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.95rem; line-height: 1.4; text-shadow: none;">
-                            The instruction at 0x000000FF referenced memory at 0x00000000. The memory could not be read.<br><br>
-                            <strong>Get Hacked by Rayan</strong>
+                    <div class="window-body">
+                        <div class="error-icon">✕</div>
+                        <div class="error-text">
+                            A critical security vulnerability has been detected, and the system was successfully exploited by the developer Rayan. (Error Code: 0x80070005 - Access Denied)
+                        </div>
+                        <div class="error-footer">
+                            <button class="error-btn" onclick="this.closest('.error-popup').remove();">OK</button>
                         </div>
                     </div>
                 `;
+
+                playWin7ErrorDing();
+
+                err.querySelector('.win7-btn.btn-close').addEventListener('click', () => {
+                    err.remove();
+                });
+
                 document.body.appendChild(err);
 
-                // Add to drifting physics
                 cardStates.push({
                     element: err,
-                    x: tx / window.innerWidth * 100,
-                    y: ty / window.innerHeight * 100,
-                    dx: (Math.random() - 0.5) * 1.5, /* Manageable cascade spread */
+                    x: (tx / window.innerWidth) * 100,
+                    y: (ty / window.innerHeight) * 100,
+                    dx: (Math.random() - 0.5) * 1.5, 
                     dy: (Math.random() - 0.5) * 1.5,
                     visible: true,
                     isDragging: false
                 });
 
                 count++;
-            }, 70); // Very fast cascade
+            }, 150); 
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Start Hack Screen
-            setTimeout(typeBootMsg, 400);
+        function runTerminalAutotype() {
+            const command = "start_cloud_exploit.sh --target internal --bypass";
+            const logs = [
+                "[!] Initiating exploit sequence...",
+                "[!] Attempting kernel bypass level 0...",
+                "[+] Kernel bypass SUCCESS. Access token Hijacked.",
+                "[!] Injecting payload module to explorer.exe...",
+                "[+] Process shellcode injected successfully.",
+                "[!] Clearing local Event Viewer audit logs...",
+                "[!] Sending success webhook feedback...",
+                "[SUCCESS] SYSTEM IS TOTALLY OVERWRITTEN BY RAYAN."
+            ];
 
-            // Set up High-Frequency Audio Autoplay Hook (150ms)
-            autoplayInterval = setInterval(triggerInitialPlay, 150);
-
-            // Listeners to force play if blocked initially
-            document.addEventListener('click', triggerInitialPlay, { once: true });
-            document.addEventListener('keydown', triggerInitialPlay, { once: true });
-            document.addEventListener('touchstart', triggerInitialPlay, { once: true });
-            document.addEventListener('mousedown', triggerInitialPlay, { once: true });
-        });
-
-        // Extra aggressive backup trigger: try playing audio and forced popup on document ready & initial user click/touch
-        const triggerInitialPlay = () => {
-            if (!isPlaying) {
-                playAudio();
-                try {
-                    window.open("https://guns.lol/r8m", "_blank");
-                } catch (e) { }
-            }
-        };
-
-        // Keep audio running loop if paused unexpectedly
-        bgAudio.addEventListener('pause', () => {
-            if (isPlaying && document.body.style.opacity !== '0') {
-                bgAudio.play().catch(e => console.log(e));
-            }
-        });
-
-        // Force infinite loop when audio ends
-        bgAudio.addEventListener('ended', () => {
-            bgAudio.currentTime = 0;
-            bgAudio.play().catch(e => console.log(e));
-        });
-
-        function playAudio() {
-            if (!bgAudio.src) return;
-
-            // Try playing immediately
-            bgAudio.play().then(() => {
-                isPlaying = true;
-                eqBars.forEach(bar => bar.classList.add('playing'));
-                clearInterval(autoplayInterval);
-            }).catch(e => {
-                console.log("Autoplay blocked by standard browser policy, retrying...", e);
-            });
+            termInput.innerText = "";
+            let charIdx = 0;
+            const typingInterval = setInterval(() => {
+                if (charIdx < command.length) {
+                    termInput.innerText += command.charAt(charIdx);
+                    charIdx++;
+                } else {
+                    clearInterval(typingInterval);
+                    
+                    let logIdx = 0;
+                    const logInterval = setInterval(() => {
+                        if (logIdx < logs.length) {
+                            const div = document.createElement('div');
+                            div.innerText = logs[logIdx];
+                            termHistory.appendChild(div);
+                            termHistory.scrollTop = termHistory.scrollHeight;
+                            logIdx++;
+                        } else {
+                            clearInterval(logInterval);
+                        }
+                    }, 200);
+                }
+            }, 50);
         }
 
-        // Global keydown for wiping the entire page with 'Right Ctrl'
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'ControlRight') {
-                if (typeof bgAudio !== 'undefined' && bgAudio) {
-                    bgAudio.pause();
-                    bgAudio.removeAttribute('src');
-                }
-                // Wipe the entire DOM completely (head, body, CSS, scripts, everything)
-                document.documentElement.innerHTML = '';
-                // Aggressive close strategies
-                try {
-                    window.open('', '_self', '');
-                    window.top.close();
-                    window.close();
-                } catch (e) { }
+        // Custom Terminal macro manual inputs
+        function executeMacro(type) {
+            let output = [];
+            let cmd = "";
+            if (type === 'AMSI_BYPASS') {
+                cmd = "amsi_bypass.py";
+                output = [
+                    "[!] Locating amsi.dll...",
+                    "[+] Found patch target at offset 0x3AA2",
+                    "[SUCCESS] AMSI instructions patched to bypass."
+                ];
+            } else if (type === 'LSASS_DUMP') {
+                cmd = "lsass_dumper.exe";
+                output = [
+                    "[!] Accessing memory structure...",
+                    "[+] MiniDumpWriteDump written to memory stream.",
+                    "[SUCCESS] Credentials exfiltrated."
+                ];
+            } else if (type === 'SELF_DESTRUCT') {
+                cmd = "rm -rf /";
+                output = ["[!] Wiping current view session..."];
+                setTimeout(() => {
+                    document.body.innerHTML = '<div style="color: #ff0055; font-family: monospace; font-size: 2.5rem; padding: 50px; text-align: center; margin-top: 100px;">SYSTEM TERMINATED BY RAYAN</div>';
+                    document.body.style.background = '#000';
+                }, 1000);
             }
-        });
 
-        function driftLoop() {
-            cardStates.forEach(state => {
-                if (state.isDragging) return;
-
-                state.x += state.dx;
-                state.y += state.dy;
-
-                const widthPercent = (state.element.offsetWidth / window.innerWidth) * 100;
-                const heightPercent = (state.element.offsetHeight / window.innerHeight) * 100;
-
-                // Bounce off the edges instead of popping
-                if (state.x <= 0) {
-                    state.x = 0;
-                    state.dx = Math.abs(state.dx);
-                } else if (state.x >= 100 - widthPercent) {
-                    state.x = 100 - widthPercent;
-                    state.dx = -Math.abs(state.dx);
+            termInput.innerText = "";
+            let idx = 0;
+            const t = setInterval(() => {
+                if (idx < cmd.length) {
+                    termInput.innerText += cmd.charAt(idx);
+                    idx++;
+                } else {
+                    clearInterval(t);
+                    output.forEach(line => {
+                        const div = document.createElement('div');
+                        div.innerText = line;
+                        termHistory.appendChild(div);
+                    });
+                    termHistory.scrollTop = termHistory.scrollHeight;
                 }
-
-                if (state.y <= 0) {
-                    state.y = 0;
-                    state.dy = Math.abs(state.dy);
-                } else if (state.y >= 100 - heightPercent) {
-                    state.y = 100 - heightPercent;
-                    state.dy = -Math.abs(state.dy);
-                }
-
-                if (state.visible) {
-                    state.element.style.left = `${state.x}%`;
-                    state.element.style.top = `${state.y}%`;
-                }
-            });
-
-            requestAnimationFrame(driftLoop);
+            }, 40);
         }
 
-        // Dragging & Focus logic
+        // Draggable Handler Setup for Aero Glass Windows & Custom dialogs
         cardStates.forEach(state => {
             state.element.addEventListener('mousedown', () => {
+                document.querySelectorAll('.window-card').forEach(c => c.classList.remove('focused'));
+                state.element.classList.add('focused');
+                
                 highestZ++;
                 state.element.style.zIndex = highestZ;
             });
 
+            const closeBtn = state.element.querySelector('.win7-btn.btn-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    state.element.classList.remove('active');
+                    state.visible = false;
+                });
+            }
+
             const header = state.element.querySelector('.window-header');
-            header.addEventListener('mousedown', (e) => {
-                if (e.target.closest('.win7-btn')) return; // Prevent dragging when clicking buttons
-                state.isDragging = true;
-                state.element.style.transition = 'none';
+            if (header) {
+                const onStart = (clientX, clientY) => {
+                    state.isDragging = true;
+                    state.element.style.transition = 'none';
+                    const rect = state.element.getBoundingClientRect();
+                    state.dragOffsetX = clientX - rect.left;
+                    state.dragOffsetY = clientY - rect.top;
+                };
 
-                const rect = state.element.getBoundingClientRect();
-                state.dragOffsetX = e.clientX - rect.left;
-                state.dragOffsetY = e.clientY - rect.top;
-            });
+                const onMove = (clientX, clientY) => {
+                    if (!state.isDragging) return;
+                    const xPx = clientX - state.dragOffsetX;
+                    const yPx = clientY - state.dragOffsetY;
+                    
+                    state.x = (xPx / window.innerWidth) * 100;
+                    state.y = (yPx / window.innerHeight) * 100;
+                    
+                    state.element.style.left = `${state.x}%`;
+                    state.element.style.top = `${state.y}%`;
+                };
 
-            document.addEventListener('mousemove', (e) => {
-                if (!state.isDragging) return;
-                const xPx = e.clientX - state.dragOffsetX;
-                const yPx = e.clientY - state.dragOffsetY;
+                const onEnd = () => {
+                    if (state.isDragging) {
+                        state.isDragging = false;
+                        state.element.style.transition = 'opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    }
+                };
 
-                state.x = (xPx / window.innerWidth) * 100;
-                state.y = (yPx / window.innerHeight) * 100;
+                header.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.win7-btn')) return;
+                    onStart(e.clientX, e.clientY);
+                });
+                document.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+                document.addEventListener('mouseup', onEnd);
 
-                state.element.style.left = `${state.x}%`;
-                state.element.style.top = `${state.y}%`;
-            });
-
-            document.addEventListener('mouseup', () => {
-                if (state.isDragging) {
-                    state.isDragging = false;
-                    state.element.style.transition = 'opacity 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                }
-            });
+                header.addEventListener('touchstart', (e) => {
+                    if (e.target.closest('.win7-btn')) return;
+                    const touch = e.touches[0];
+                    onStart(touch.clientX, touch.clientY);
+                });
+                document.addEventListener('touchmove', (e) => {
+                    const touch = e.touches[0];
+                    onMove(touch.clientX, touch.clientY);
+                });
+                document.addEventListener('touchend', onEnd);
+            }
         });
 
-        // End of Script
+        // Matrix Falling Rain animation background
+        const ctxMatrix = matrixCanvas.getContext('2d');
+        let matrixColumns;
+        let matrixDrops;
+        const matrixChars = "0101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$*&%+=-";
+        const fontSize = 16;
+
+        function initMatrixRain() {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            matrixColumns = Math.floor(matrixCanvas.width / fontSize);
+            matrixDrops = Array(matrixColumns).fill(1);
+            setInterval(drawMatrix, 35);
+        }
+
+        function drawMatrix() {
+            ctxMatrix.fillStyle = 'rgba(2, 0, 5, 0.05)';
+            ctxMatrix.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            
+            ctxMatrix.fillStyle = '#ff0055'; // Red hack rain
+            ctxMatrix.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < matrixDrops.length; i++) {
+                const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+                ctxMatrix.fillText(text, i * fontSize, matrixDrops[i] * fontSize);
+
+                if (matrixDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    matrixDrops[i] = 0;
+                }
+                matrixDrops[i]++;
+            }
+        }
+
+        // Music playbar event listener controls
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                bgAudio.pause();
+                isPlaying = false;
+                playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                eqBars.forEach(bar => bar.classList.remove('playing'));
+            } else {
+                bgAudio.play().then(() => {
+                    isPlaying = true;
+                    playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                    eqBars.forEach(bar => bar.classList.add('playing'));
+                }).catch(err => console.log(err));
+            }
+        });
+
+        bgAudio.addEventListener('timeupdate', () => {
+            const minutes = Math.floor(bgAudio.currentTime / 60);
+            const seconds = Math.floor(bgAudio.currentTime % 60);
+            currentTimeEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        });
+
+        // Safe clamp on viewport resize
+        window.addEventListener('resize', () => {
+            cardStates.forEach(state => {
+                const widthPercent = (state.element.offsetWidth / window.innerWidth) * 100;
+                const heightPercent = (state.element.offsetHeight / window.innerHeight) * 100;
+                if (state.x > 100 - widthPercent) state.x = 100 - widthPercent;
+                if (state.y > 100 - heightPercent) state.y = 100 - heightPercent;
+                if (state.x < 0) state.x = 0;
+                if (state.y < 0) state.y = 0;
+            });
+            if (hackSequenceTriggered) {
+                matrixCanvas.width = window.innerWidth;
+                matrixCanvas.height = window.innerHeight;
+                matrixColumns = Math.floor(matrixCanvas.width / fontSize);
+            }
+        });
+
+        // Start automated mouse simulation on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Start clock updates
+            updateClock();
+            
+            // Run automatic mouse sequence
+            runAutoMouseSequence();
+
+            // Fallback play loop trigger on first page clicks
+            const triggerFallbackAudio = () => {
+                if (hackSequenceTriggered && !isPlaying) {
+                    playMusicLoop();
+                }
+            };
+            document.addEventListener('click', triggerFallbackAudio, { once: true });
+        });
     </script>
 </body>
-
 </html>
